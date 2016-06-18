@@ -15,7 +15,7 @@ public class Cashier {
     private String m_LastName;
     @OneToMany(mappedBy = "m_Cashier")
     private List<Bon> m_Bon=new ArrayList<Bon>();
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Position m_Position;
 
     public Cashier() {

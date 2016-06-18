@@ -1,34 +1,32 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
+import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
-public class Bon {
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int m_BonID;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date m_DateTime;
+public class Bon extends AbstractDatabaseEntity {
+    private static final long serialVersionUID = -1012218123429933983L;
     @OneToMany(mappedBy = "m_Bon")
     private List<BonInventory> m_BonInventory=new ArrayList<BonInventory>();
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private CashRegister m_CashRegister;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Cashier m_Cashier;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Customer m_Customer;
 
     public Bon()
     {
 
     }
-    public Bon(Date _DateTime, Cashier _Cashier, CashRegister _CashRegister)
+    public Bon(Cashier _Cashier, CashRegister _CashRegister)
     {
-        this.m_DateTime = _DateTime;
         _Cashier.addBon(this);
         _CashRegister.addBon(this);
         this.m_CashRegister = _CashRegister;
@@ -63,18 +61,6 @@ public class Bon {
     public List<BonInventory> getBonInventorys()
     {
         return this.m_BonInventory;
-    }
-
-    public int getBonID() {
-        return m_BonID;
-    }
-
-    public Date getDateTime() {
-        return m_DateTime;
-    }
-
-    public void setDateTime(Date _DateTime) {
-        this.m_DateTime = _DateTime;
     }
 
     public Cashier getCashier() { return m_Cashier; }

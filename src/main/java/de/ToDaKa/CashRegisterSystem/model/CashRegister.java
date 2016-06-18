@@ -9,8 +9,6 @@ public class CashRegister {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private int m_CashregisterID;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Location m_Location;
     @OneToMany(mappedBy = "m_CashRegister")
     private List<Bon> m_Bon=new ArrayList<Bon>();
 
@@ -18,9 +16,6 @@ public class CashRegister {
     }
 
 
-    public CashRegister(Location _Location) {
-        _Location.addCashRegister(this);
-    }
 
     public void addBon(Bon _Bon)
     {
@@ -57,14 +52,6 @@ public class CashRegister {
         this.m_Bon = _Bon;
     }
 
-    public Location getLocation() {
-        return m_Location;
-    }
-
-    public void setLocation(Location _Location) {
-        this.m_Location = _Location;
-    }
-
     public int getCashregisterID() {
         return m_CashregisterID;
     }
@@ -72,4 +59,6 @@ public class CashRegister {
     public void setCashregisterID(int _CashregisterID) {
         this.m_CashregisterID = _CashregisterID;
     }
+
+
 }

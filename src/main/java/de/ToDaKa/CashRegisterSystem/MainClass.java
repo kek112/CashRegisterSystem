@@ -1,19 +1,17 @@
 package de.ToDaKa.CashRegisterSystem;
 
 import de.ToDaKa.CashRegisterSystem.model.*;
-import javafx.geometry.Pos;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.*;
+import de.ToDaKa.CashRegisterSystem.model.execptions.InventoryExistsException;
+import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 
 
 public class MainClass
 {
     public static void main(String[] args)
     {
+        /**
         // test main
 
         //Create Cashier and Position
@@ -23,8 +21,7 @@ public class MainClass
         Cashier CurrentCashier=new Cashier("Daniel", "Albrecht", Admin);
 
         //Create Cash Register and Location
-        Location CurrentLocation =new Location("REWE Eislebener Straße");
-        CashRegister CurrentCashRegister =new CashRegister(CurrentLocation);
+       CashRegister CurrentCashRegister =new CashRegister();
 
 
         //Create Bon
@@ -32,14 +29,26 @@ public class MainClass
 
 
         //Create a Article in the Inventory
-        Inventory CurrentArticle=new Inventory(123456789,"Laptop", 5,299.99f, false);
+        Inventory CurrentArticle=new Inventory(123426789,"Laptop", 5,299.99f, false);
 
         //Add Article
         new BonInventory(2,new Date(),CurrentArticle.getPrice(),CurrentBon, CurrentArticle);
 
-        CurrentArticle=new Inventory(134123141,"Tastatur", 2,19.99f, false);
-        new BonInventory(2,new Date(),CurrentArticle.getPrice(),CurrentBon, CurrentArticle);
+        CurrentArticle=new Inventory(123456789,"Tastatur", 2,19.99f, false);
+        new BonInventory(2,new Date(),CurrentBon, CurrentArticle);
 
+        //Save in DB
+        EntityManagerFactory EMF;
+        EntityManager EM;
+        EMF=Persistence.createEntityManagerFactory("CashRegisterSystem-Unit");
+        EM=EMF.createEntityManager();
+
+        EM.getTransaction().begin();
+        EM.persist(CurrentArticle);
+        EM.getTransaction();
+
+
+        EM.close();
         System.out.println("Datum: "+CurrentBon.getDateTime());
         System.out.println(CurrentBon.getCashier().getPosition().getName()+": "+CurrentBon.getCashier().getLastName()+", "+CurrentBon.getCashier().getFirstName()+"\n");
 
@@ -49,11 +58,44 @@ public class MainClass
         {
             CurrentBonInventory=CurrentBon.getBonInventorys().get(i);
 
+            System.out.print(CurrentBonInventory.getInventory().getID()+" ");
             System.out.print(CurrentBonInventory.getAmount()+" ");
             System.out.print(CurrentBonInventory.getPrice()+" ");
             System.out.print(CurrentBonInventory.getInventory().getName()+"\n");
         }
+        */
 
+        //Create Test CRS
+        CashRegisterSystem CRS=new CashRegisterSystem();
+        try
+        {
+            CRS.addInventory(new Inventory(123456789,"Tastatur", 2,19.99f, false));
+            CRS.addInventory(new Inventory(122336789,"Maus", 2,4.99f, false));
+
+        }
+        catch (InventoryExistsException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        IStorageController sc=new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(CRS);
+
+            CRS=sc.loadCashRegisterSystem();
+
+            for( Inventory _Inventory : CRS.getInventoryList())
+            {
+                System.out.println( _Inventory.getId() + " - " + _Inventory.getName() );
+            }
+        }
+        catch (StorageException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 }

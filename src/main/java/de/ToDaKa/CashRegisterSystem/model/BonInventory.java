@@ -9,21 +9,24 @@ public class BonInventory {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private int m_BonInventoryID;
     private int m_Amount;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date m_DateTime;
     private float m_Price;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Inventory m_Inventory;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Bon m_Bon;
 
     public BonInventory() {
 
     }
-    public BonInventory(int _Amount, Date _DateTime, float _Price, Bon _Bon, Inventory _Inventory) {
+    public BonInventory(int _Amount, float _Price, Bon _Bon, Inventory _Inventory) {
         this.m_Amount = _Amount;
-        this.m_DateTime = _DateTime;
         this.m_Price = _Price;
+        _Bon.addBonInventory(this);
+        _Inventory.addBonInventory(this);
+    }
+    public BonInventory(int _Amount, Bon _Bon, Inventory _Inventory) {
+        this.m_Amount = _Amount;
+        this.m_Price = _Inventory.getPrice();
         _Bon.addBonInventory(this);
         _Inventory.addBonInventory(this);
     }
@@ -39,14 +42,6 @@ public class BonInventory {
 
     public void setAmount(int _Amount) {
         this.m_Amount = _Amount;
-    }
-
-    public Date getDate() {
-        return m_DateTime;
-    }
-
-    public void setDate(Date _DateTime) {
-        this.m_DateTime = _DateTime;
     }
 
     public float getPrice() {
