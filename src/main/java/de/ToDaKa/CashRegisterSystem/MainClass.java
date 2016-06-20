@@ -70,13 +70,13 @@ public class MainClass
         try
         {
             CRS.addInventory(new Inventory(123456789,"Tastatur", 2,19.99f, false));
-            CRS.addInventory(new Inventory(122336789,"Maus", 2,4.99f, false));
-
+            CRS.addInventory(new Inventory(122356789,"Maus", 2,4.99f, false));
         }
         catch (InventoryExistsException e)
         {
             e.printStackTrace();
         }
+
 
 
         IStorageController sc=new JpaStorageController();
