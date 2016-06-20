@@ -4,6 +4,7 @@ import de.ToDaKa.CashRegisterSystem.model.*;
 import de.ToDaKa.CashRegisterSystem.model.execptions.InventoryExistsException;
 import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
 import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.core.*;
 import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 
 
@@ -71,6 +72,8 @@ public class MainClass
         {
             CRS.addInventory(new Inventory(123456789,"Tastatur", 2,19.99f, false));
             CRS.addInventory(new Inventory(122356789,"Maus", 2,4.99f, false));
+
+
         }
         catch (InventoryExistsException e)
         {
@@ -96,6 +99,17 @@ public class MainClass
         {
             e.printStackTrace();
         }
+
+        //search by ID
+        IGenericDao<Inventory> InventoryDao = DataController.getInstance().getInventoryDao();
+
+        Inventory searchedItem= InventoryDao.findById(new Long(1));
+        System.out.println( searchedItem.getId() + " - " + searchedItem.getName() );
+
+        //search by Barcode
+        searchedItem=CRS.findInventoryByBarcode(122356789);
+        System.out.println( searchedItem.getId() + " - " + searchedItem.getName() );
+
 
     }
 }
