@@ -1,14 +1,14 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
+import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class CashRegister {
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int m_CashregisterID;
+public class CashRegister extends AbstractDatabaseEntity implements Serializable {
     @OneToMany(mappedBy = "m_CashRegister")
     private List<Bon> m_Bon=new ArrayList<Bon>();
 
@@ -50,14 +50,6 @@ public class CashRegister {
 
     public void setBon(List<Bon> _Bon) {
         this.m_Bon = _Bon;
-    }
-
-    public int getCashregisterID() {
-        return m_CashregisterID;
-    }
-
-    public void setCashregisterID(int _CashregisterID) {
-        this.m_CashregisterID = _CashregisterID;
     }
 
 

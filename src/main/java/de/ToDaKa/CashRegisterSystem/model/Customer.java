@@ -1,13 +1,13 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
+import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Customer {
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int m_CustomerID;
+public class Customer extends AbstractDatabaseEntity implements Comparable<Customer>, Serializable {
     private String m_FirstName;
     private String m_LastName;
     @OneToMany(mappedBy = "m_Customer")
@@ -45,14 +45,6 @@ public class Customer {
         }
     }
 
-    public int getCustomerID() {
-        return m_CustomerID;
-    }
-
-    public void setCustomerID(int _CustomerID) {
-        this.m_CustomerID = _CustomerID;
-    }
-
     public List<Bon> getBon() {
         return m_Bon;
     }
@@ -75,5 +67,16 @@ public class Customer {
 
     public void setFirstName(String _FirstName) {
         this.m_FirstName = _FirstName;
+    }
+
+    public int compareTo(Customer o) {
+        if( this.getLastName().equalsIgnoreCase( o.getLastName() ) )
+        {
+            return this.getFirstName().compareTo( o.getFirstName() );
+        }
+        else
+        {
+            return this.getLastName().compareTo( o.getLastName() );
+        }
     }
 }

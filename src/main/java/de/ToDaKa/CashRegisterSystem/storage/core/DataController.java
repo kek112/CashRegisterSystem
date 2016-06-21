@@ -48,5 +48,20 @@ public class DataController
         return new JpaGenericDao<Bon>(Bon.class,
                 this.entityManagerFactory.createEntityManager() );
     }
+    public IGenericDao<Cashier> getCashierDao()
+    {
+        return new JpaGenericDao<Cashier>(Cashier.class,
+                this.entityManagerFactory.createEntityManager() );
+    }
+    public IGenericDao<Customer> getCustomerDao()
+    {
+        return new JpaGenericDao<Customer>(Customer.class,
+                this.entityManagerFactory.createEntityManager() );
+    }
+    public IGenericDao<CashRegister> getCashRegisterDao()
+    {
+        return new JpaGenericDao<CashRegister>(CashRegister.class,
+                this.entityManagerFactory.createEntityManager() );
+    }
 
 }

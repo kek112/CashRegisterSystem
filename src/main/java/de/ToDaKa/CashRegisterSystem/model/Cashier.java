@@ -1,19 +1,20 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
+import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Cashier {
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int m_Cashier;
+public class Cashier extends AbstractDatabaseEntity implements Comparable<Customer>, Serializable {
     private String m_FirstName;
     private String m_LastName;
     boolean IsAdmin;
+    String Md5Password;
     @OneToMany(mappedBy = "m_Cashier")
     private List<Bon> m_Bon=new ArrayList<Bon>();
 
@@ -22,10 +23,11 @@ public class Cashier {
     public Cashier() {
     }
 
-    public Cashier(String _FirstName, String _LastName, boolean _IsAdmin) {
+    public Cashier(String _FirstName, String _LastName, String _Md5Password, boolean _IsAdmin) {
         this.m_FirstName = _FirstName;
         this.m_LastName = _LastName;
         this.IsAdmin=_IsAdmin;
+        this.Md5Password = _Md5Password;
     }
 
     public void addBon(Bon _Bon)
@@ -65,14 +67,6 @@ public class Cashier {
         IsAdmin = admin;
     }
 
-    public int getCashier() {
-        return m_Cashier;
-    }
-
-    public void setCashier(int _Cashier) {
-        this.m_Cashier = _Cashier;
-    }
-
     public String getFirstName() {
         return m_FirstName;
     }
@@ -87,5 +81,24 @@ public class Cashier {
 
     public void setLastName(String _LastName) {
         this.m_LastName = _LastName;
+    }
+
+    public String getMd5Password() {
+        return Md5Password;
+    }
+
+    public void setMd5Password(String md5Password) {
+        Md5Password = md5Password;
+    }
+
+    public int compareTo(Customer o) {
+        if( this.getLastName().equalsIgnoreCase( o.getLastName() ) )
+        {
+            return this.getFirstName().compareTo( o.getFirstName() );
+        }
+        else
+        {
+            return this.getLastName().compareTo( o.getLastName() );
+        }
     }
 }

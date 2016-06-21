@@ -16,7 +16,6 @@ public class CashRegisterSystem implements Serializable {
     private static final long serialVersionUID = -4224741350801502250L;
 
     private List<Bon> BonList= new ArrayList<Bon>();
-    private List<BonInventory> BonInventoryList=new ArrayList<BonInventory>();
     private List<Cashier> CashierList=new ArrayList<Cashier>();
     private List<CashRegister> CashRegisterList =new ArrayList<CashRegister>();
     private List<Customer> CustomerList=new ArrayList<Customer>();
@@ -101,8 +100,15 @@ public class CashRegisterSystem implements Serializable {
         }
         else
         {
-            //Search whit Barcode
-            return findInventoryByBarcode(_Inventory.getBarcode());
+            //Search with Barcode
+            for(Inventory _CurrentInventory: InventoryList)
+            {
+                if(_Inventory.compareTo(_CurrentInventory)==1)
+                {
+                    return _CurrentInventory;
+                }
+            }
+            return null;
         }
     }
     public Bon findBon(Bon _Bon)
@@ -111,18 +117,6 @@ public class CashRegisterSystem implements Serializable {
         if(index!=-1)
         {
             return this.BonList.get(index);
-        }
-        else
-        {
-            return null;
-        }
-    }
-    public BonInventory findBonInventory(BonInventory _BonInventory)
-    {
-        int index = this.BonInventoryList.indexOf(_BonInventory);
-        if(index!=-1)
-        {
-            return this.BonInventoryList.get(index);
         }
         else
         {
@@ -166,31 +160,12 @@ public class CashRegisterSystem implements Serializable {
             return null;
         }
     }
-    public Inventory findInventoryByBarcode(long Barcode)
-    {
-        for(Inventory _CurrentInventory: InventoryList)
-        {
-            if(_CurrentInventory.getBarcode()==Barcode)
-            {
-                return _CurrentInventory;
-            }
-        }
-        return null;
-    }
     public List<Bon> getBon() {
         return BonList;
     }
 
     public void setBon(List<Bon> bon) {
         BonList = bon;
-    }
-
-    public List<BonInventory> getBonInventory() {
-        return BonInventoryList;
-    }
-
-    public void setBonInventory(List<BonInventory> bonInventory) {
-        BonInventoryList = bonInventory;
     }
 
     public List<Cashier> getCashierList() {

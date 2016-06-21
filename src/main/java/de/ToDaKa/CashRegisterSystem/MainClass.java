@@ -71,7 +71,7 @@ public class MainClass
         {
             CRS.addInventory(new Inventory(123456789,"Tastatur", 2,19.99f, false));
             CRS.addInventory(new Inventory(122356789,"Maus", 2,4.99f, false));
-            CRS.addCashier(new Cashier("Daniel", "Kley",true));
+            CRS.addCashier(new Cashier("Daniel", "Kley",MD5.getMD5("Passlord"),true));
 
 
         }
@@ -103,14 +103,18 @@ public class MainClass
 
         //search by ID
         IGenericDao<Inventory> InventoryDao = DataController.getInstance().getInventoryDao();
+        IGenericDao<Cashier> CashierDao = DataController.getInstance().getCashierDao();
+
 
         Inventory searchedItem= InventoryDao.findById(new Long(1));
         System.out.println( searchedItem.getId() + " - " + searchedItem.getName() );
 
         //search by Barcode
-        searchedItem=CRS.findInventoryByBarcode(122356789);
-        System.out.println( searchedItem.getId() + " - " + searchedItem.getName() );
+       // searchedItem=CRS.findInventoryByBarcode(122356789);
+       // System.out.println( searchedItem.getId() + " - " + searchedItem.getName() );
 
-
+        //Test MD5 Hash
+        Cashier searchedCashier= CashierDao.findById(new Long(1));
+        System.out.println( searchedCashier.getMd5Password());
     }
 }
