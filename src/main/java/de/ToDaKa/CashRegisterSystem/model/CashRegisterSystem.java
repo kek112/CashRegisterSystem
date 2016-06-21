@@ -21,14 +21,13 @@ public class CashRegisterSystem implements Serializable {
     private List<CashRegister> CashRegisterList =new ArrayList<CashRegister>();
     private List<Customer> CustomerList=new ArrayList<Customer>();
     private List<Inventory> InventoryList=new ArrayList<Inventory>();
-    private List<Position> PositionList=new ArrayList<Position>();
 
     public CashRegisterSystem()
     {
 
     }
 
-    public void addInventory(Inventory _Inventory) throws InventoryExistsException
+    public Inventory addInventory(Inventory _Inventory) throws InventoryExistsException
     {
         Inventory existing = this.findInventory(_Inventory);
         if(existing!=null)
@@ -39,8 +38,9 @@ public class CashRegisterSystem implements Serializable {
         {
             InventoryList.add(_Inventory);
         }
+        return _Inventory;
     }
-    public void addBon(Bon _Bon) throws BonExistsException
+    public Bon addBon(Bon _Bon) throws BonExistsException
     {
         Bon existing = this.findBon(_Bon);
         if(existing!=null)
@@ -51,29 +51,9 @@ public class CashRegisterSystem implements Serializable {
         {
             BonList.add(_Bon);
         }
+        return _Bon;
     }
-    public void addBonInventory(BonInventory _BonInventory) throws BonExistsException
-    {
-        BonInventory existing = this.findBonInventory(_BonInventory);
-        if(existing!=null)
-        {
-            throw new BonExistsException( "BonInventory "+_BonInventory+" already exists in the Cash Register System" );
-        }
-        {
-            BonInventoryList.add(_BonInventory);
-        }
-    }
-    public void addPosition(Position _Position) throws PositionExistsException
-    {
-        Position existing = this.findPosition(_Position);
-        if(existing!=null)
-        {
-            throw new PositionExistsException( "Position "+_Position+" already exists in the Cash Register System" );
-        }
-        {
-            PositionList.add(_Position);
-        }
-    }
+
     public void addCashier(Cashier _Cashier) throws CashierExistsException
     {
         Cashier existing = this.findCashier(_Cashier);
@@ -85,7 +65,7 @@ public class CashRegisterSystem implements Serializable {
             CashierList.add(_Cashier);
         }
     }
-    public void addCashRegister(CashRegister _CashRegister) throws CashRegisterExistsException
+    public CashRegister addCashRegister(CashRegister _CashRegister) throws CashRegisterExistsException
     {
         CashRegister existing = this.findCashRegister(_CashRegister);
         if(existing!=null)
@@ -95,8 +75,10 @@ public class CashRegisterSystem implements Serializable {
         {
             CashRegisterList.add(_CashRegister);
         }
+        return _CashRegister;
     }
-    public void addCustomer(Customer _Customer) throws CustomerExistsException
+
+    public Customer addCustomer(Customer _Customer) throws CustomerExistsException
     {
         Customer existing = this.findCustomer(_Customer);
         if(existing!=null)
@@ -106,6 +88,7 @@ public class CashRegisterSystem implements Serializable {
         {
             CustomerList.add(_Customer);
         }
+        return _Customer;
     }
 
 
@@ -146,18 +129,7 @@ public class CashRegisterSystem implements Serializable {
             return null;
         }
     }
-    public Position findPosition(Position _Position)
-    {
-        int index = this.PositionList.indexOf(_Position);
-        if(index!=-1)
-        {
-            return this.PositionList.get(index);
-        }
-        else
-        {
-            return null;
-        }
-    }
+
     public Cashier findCashier(Cashier _Cashier)
     {
         int index = this.CashierList.indexOf(_Cashier);
@@ -253,11 +225,5 @@ public class CashRegisterSystem implements Serializable {
         InventoryList = inventoryList;
     }
 
-    public List<Position> getPositionList() {
-        return PositionList;
-    }
 
-    public void setPositionList(List<Position> positionList) {
-        PositionList = positionList;
-    }
 }

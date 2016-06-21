@@ -13,23 +13,21 @@ public class Cashier {
     private int m_Cashier;
     private String m_FirstName;
     private String m_LastName;
+    boolean IsAdmin;
     @OneToMany(mappedBy = "m_Cashier")
     private List<Bon> m_Bon=new ArrayList<Bon>();
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Position m_Position;
+
+
 
     public Cashier() {
     }
 
-    public Cashier(String _FirstName, String _LastName, Position _Position) {
+    public Cashier(String _FirstName, String _LastName, boolean _IsAdmin) {
         this.m_FirstName = _FirstName;
         this.m_LastName = _LastName;
-        _Position.addCashier(this);
+        this.IsAdmin=_IsAdmin;
     }
 
-    public Position getPosition() {
-        return m_Position;
-    }
     public void addBon(Bon _Bon)
     {
 
@@ -59,8 +57,12 @@ public class Cashier {
         }
     }
 
-    public void setPosition(Position _Position) {
-        m_Position=_Position;
+    public boolean isAdmin() {
+        return IsAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        IsAdmin = admin;
     }
 
     public int getCashier() {

@@ -1,14 +1,10 @@
 package de.ToDaKa.CashRegisterSystem;
 
 import de.ToDaKa.CashRegisterSystem.model.*;
-import de.ToDaKa.CashRegisterSystem.model.execptions.CashierExistsException;
-import de.ToDaKa.CashRegisterSystem.model.execptions.InventoryExistsException;
-import de.ToDaKa.CashRegisterSystem.model.execptions.PositionExistsException;
-import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
-import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.model.execptions.*;
+import de.ToDaKa.CashRegisterSystem.storage.*;
 import de.ToDaKa.CashRegisterSystem.storage.core.*;
 import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
-import javafx.geometry.Pos;
 
 
 public class MainClass
@@ -71,26 +67,18 @@ public class MainClass
 
         //Create Test CRS
         CashRegisterSystem CRS=new CashRegisterSystem();
-        Position Admin= new Position("Hauptkassierer");
-        Position User =new Position("Normaler Mensch");
-
         try
         {
-            CRS.addPosition(Admin);
-            CRS.addPosition(User);
             CRS.addInventory(new Inventory(123456789,"Tastatur", 2,19.99f, false));
             CRS.addInventory(new Inventory(122356789,"Maus", 2,4.99f, false));
-            CRS.addCashier(new Cashier("Daniel", "Kley",User));
+            CRS.addCashier(new Cashier("Daniel", "Kley",true));
 
 
         }
         catch (InventoryExistsException e)
         {
             e.printStackTrace();
-        }
-        catch (PositionExistsException e) {
-            e.printStackTrace();
-        } catch (CashierExistsException e) {
+        }catch (CashierExistsException e) {
             e.printStackTrace();
         }
 
