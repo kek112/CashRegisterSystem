@@ -65,56 +65,29 @@ public class MainClass
         }
         */
 
+
         //Create Test CRS
         CashRegisterSystem CRS=new CashRegisterSystem();
-        try
-        {
-            CRS.addInventory(new Inventory(123456789,"Tastatur", 2,19.99f, false));
-            CRS.addInventory(new Inventory(122356789,"Maus", 2,4.99f, false));
-            CRS.addCashier(new Cashier("Daniel", "Kley",MD5.getMD5("Passlord"),true));
+        DataProvider dataProvider =new DataProvider();
+        CRS=dataProvider.creatTestCRS();
 
-
-        }
-        catch (InventoryExistsException e)
-        {
-            e.printStackTrace();
-        }catch (CashierExistsException e) {
-            e.printStackTrace();
-        }
-
-
-        IStorageController sc=new JpaStorageController();
+        IStorageController sc = new JpaStorageController();
 
         try
         {
-            sc.saveCashRegisterSystem(CRS);
-
-            CRS=sc.loadCashRegisterSystem();
-
-            for( Inventory _Inventory : CRS.getInventoryList())
-            {
-                System.out.println( _Inventory.getId() + " - " + _Inventory.getName() );
-            }
+        sc.saveCashRegisterSystem(CRS);
         }
         catch (StorageException e)
         {
             e.printStackTrace();
         }
-
         //search by ID
-        IGenericDao<Inventory> InventoryDao = DataController.getInstance().getInventoryDao();
+        IGenericDao<Customer> CustomerDao = DataController.getInstance().getCustomerDao();
         IGenericDao<Cashier> CashierDao = DataController.getInstance().getCashierDao();
 
 
-        Inventory searchedItem= InventoryDao.findById(new Long(1));
-        System.out.println( searchedItem.getId() + " - " + searchedItem.getName() );
+        Customer searchedCustomer= CustomerDao.findById(new Long(1));
+        System.out.println( searchedCustomer.getId() +" - "+searchedCustomer.getFirstName() );
 
-        //search by Barcode
-       // searchedItem=CRS.findInventoryByBarcode(122356789);
-       // System.out.println( searchedItem.getId() + " - " + searchedItem.getName() );
-
-        //Test MD5 Hash
-        Cashier searchedCashier= CashierDao.findById(new Long(1));
-        System.out.println( searchedCashier.getMd5Password());
     }
 }

@@ -1,24 +1,32 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
 import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Customer extends AbstractDatabaseEntity implements Comparable<Customer>, Serializable {
     private String m_FirstName;
     private String m_LastName;
+    private boolean isMale;
+    private long Telephone;
+    private Date Birthday;
     @OneToMany(mappedBy = "m_Customer")
     private List<Bon> m_Bon;
 
     public Customer() {
     }
 
-    public Customer(String _FirstName, String _LastName) {
+    public Customer(String _FirstName, String _LastName, boolean _isMale, long _Telephone, Date _Birthday) {
         this.m_FirstName = _FirstName;
         this.m_LastName = _LastName;
+        this.isMale=_isMale;
+        this.Telephone=_Telephone;
+        this.Birthday=_Birthday;
     }
     public void addBon(Bon _Bon)
     {
@@ -68,6 +76,7 @@ public class Customer extends AbstractDatabaseEntity implements Comparable<Custo
     public void setFirstName(String _FirstName) {
         this.m_FirstName = _FirstName;
     }
+
 
     public int compareTo(Customer o) {
         if( this.getLastName().equalsIgnoreCase( o.getLastName() ) )
