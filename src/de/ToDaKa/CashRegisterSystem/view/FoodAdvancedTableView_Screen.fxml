@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.7506265664160401" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerStockAdvancedTableViewScreen">
+    <items>
+    <AnchorPane>
+         <children>
+            <HBox minWidth="-Infinity" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <MenuBar fx:id="fileMenu" prefWidth="1000.0" HBox.hgrow="ALWAYS">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                              <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleBack" text="Back" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </HBox>
+            <TableView fx:id="Stocktable" layoutX="1.0" layoutY="30.0" prefHeight="566.0" prefWidth="1000.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+              <columns>
+                  <TableColumn fx:id="BarcodeCol1" editable="false" onEditCommit="#BarcodeCol_OnEditCommit" prefWidth="124.0" text="Barcode" />
+                  <TableColumn fx:id="NameCol" onEditCommit="#NameCol_OnEditCommit" prefWidth="124.0" text="Name" />
+                  <TableColumn fx:id="AmountCol" onEditCommit="#AmountCol_OnEditCommit" prefWidth="124.0" text="Anzahl" />
+                  <TableColumn fx:id="PriceCol" onEditCommit="#PriceCol_OnEditCommit" prefWidth="124.0" text="Preis" />
+                  <TableColumn fx:id="isFoodCol" onEditCommit="#isFoodCol_OnEditCommit" prefWidth="124.0" text="Lebenmittel" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="1000.0" prefHeight="100.0" prefWidth="1000.0">
+         <children>
+            <HBox />
+            <TextField fx:id="BarcodeTextfield" layoutX="14.0" layoutY="14.0" promptText="Barcode..." />
+            <TextField fx:id="PriceField" layoutX="201.0" layoutY="14.0" promptText="Preis..." />
+            <TextField fx:id="NameTextfeld" layoutX="14.0" layoutY="54.0" promptText="Name..." />
+            <TextField fx:id="AmountTextfield" layoutX="14.0" layoutY="97.0" promptText="Anzahl..." />
+            <ComboBox fx:id="isFoodBox" layoutX="389.0" layoutY="14.0" prefWidth="150.0" promptText="Lebensmittel" />
+            <Button fx:id="addBtn" layoutX="573.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Add" />
+            <Button fx:id="deleteBtn" layoutX="654.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Delete" />
+            <TextField fx:id="filterInput" layoutX="573.0" layoutY="85.0" promptText="Filter Table..." />
+            <Button fx:id="clearBtn" layoutX="744.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Clear " />
+            <Button fx:id="BackButton" layoutX="945.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>

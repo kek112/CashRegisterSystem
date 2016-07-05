@@ -1,6 +1,5 @@
 package de.ToDaKa.CashRegisterSystem.control;
 
-import de.ToDaKa.CashRegisterSystem.model.CashRegisterSystem;
 import de.ToDaKa.CashRegisterSystem.model.Cashier;
 import de.ToDaKa.CashRegisterSystem.storage.core.DataController;
 import de.ToDaKa.CashRegisterSystem.storage.core.IGenericDao;

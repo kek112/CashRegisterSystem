@@ -6,7 +6,6 @@ import de.ToDaKa.CashRegisterSystem.storage.core.IGenericDao;
 import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class JpaStorageController implements IStorageController
 {

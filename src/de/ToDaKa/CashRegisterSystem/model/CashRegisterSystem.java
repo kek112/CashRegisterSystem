@@ -2,11 +2,10 @@ package de.ToDaKa.CashRegisterSystem.model;
 
 
 import de.ToDaKa.CashRegisterSystem.model.execptions.*;
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Daniel on 15.06.2016.

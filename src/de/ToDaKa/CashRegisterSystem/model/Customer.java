@@ -1,7 +1,6 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
 import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;

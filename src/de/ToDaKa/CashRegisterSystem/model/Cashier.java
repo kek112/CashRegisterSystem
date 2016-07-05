@@ -1,11 +1,9 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
 import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 

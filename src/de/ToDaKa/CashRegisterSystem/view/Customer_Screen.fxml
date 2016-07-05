@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<SplitPane dividerPositions="0.7506265664160401" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerCustomer">
+    <items>
+    <AnchorPane>
+         <children>
+            <HBox minWidth="-Infinity" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <MenuBar fx:id="fileMenu" prefWidth="1000.0" HBox.hgrow="ALWAYS">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Exit" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </HBox>
+            <TableView fx:id="CustomerTable" layoutX="1.0" layoutY="30.0" prefHeight="566.0" prefWidth="1000.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+              <columns>
+                  <TableColumn fx:id="CustomerIDCol" editable="false" onEditCommit="#CustomerIDCol_OnEditCommit" prefWidth="124.0" text="KundenNr" />
+                  <TableColumn fx:id="genderCol" onEditCommit="#BirthdayCol_OnEditCommit" prefWidth="170.0" text="Anrede" />
+                  <TableColumn fx:id="lastNameCol" onEditCommit="#lastNameCol_OnEditCommit" prefWidth="131.0" text="Nachname" />
+                <TableColumn fx:id="firstNameCol" onEditCommit="#firstNameCol_OnEditCommit" prefWidth="121.0" text="Vorname" />
+                <TableColumn fx:id="TelephoneCol" onEditCommit="#TelephoneCol_OnEditCommit" prefWidth="149.0" text="Telefon" />
+                  <TableColumn fx:id="BirthdayCol" onEditCommit="#BirthdayCol_OnEditCommit" prefWidth="170.0" text="Geburtsdatum" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="1000.0" prefHeight="100.0" prefWidth="1000.0">
+         <children>
+            <HBox />
+            <TextField fx:id="firstNameField" layoutX="14.0" layoutY="56.0" promptText="Vorname" />
+            <TextField fx:id="BirthdayField" layoutX="201.0" layoutY="56.0" promptText="Geburtstag" />
+            <TextField fx:id="lastNameField" layoutX="14.0" layoutY="96.0" promptText="Nachname" />
+            <TextField fx:id="TelephoneField" layoutX="201.0" layoutY="98.0" promptText="Telefon" />
+            <ComboBox fx:id="genderBox" layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Anrede" />
+            <Button fx:id="addBtn" layoutX="573.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Add" />
+            <Button fx:id="deleteBtn" layoutX="654.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Delete" />
+            <TextField fx:id="filterInput" layoutX="573.0" layoutY="85.0" promptText="Suchen nach Nachname" />
+            <Button layoutX="744.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Clear " />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
