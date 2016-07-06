@@ -81,7 +81,7 @@ public class CashRegisterSystem implements Serializable {
         Customer existing = this.findCustomer(_Customer);
         if(existing!=null)
         {
-            throw new CustomerExistsException( "Customer "+_Customer+" already exists in the Cash Register System" );
+            throw new CustomerExistsException( "CustomerBeans "+_Customer+" already exists in the Cash Register System" );
         }
         {
             CustomerList.add(_Customer);

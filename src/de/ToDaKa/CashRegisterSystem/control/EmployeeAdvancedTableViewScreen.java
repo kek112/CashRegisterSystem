@@ -39,22 +39,22 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     //TABLEVIEW
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @FXML
-    private TableView<Employee> employeeTable;
+    private TableView<EmployeeBeans> employeeTable;
 
-    ObservableList<Employee> observableEmployeeList = FXCollections.observableArrayList();
+    ObservableList<EmployeeBeans> observableEmployeeBeansList = FXCollections.observableArrayList();
 
     @FXML
-    private TableColumn<Employee, String> NameCol;
+    private TableColumn<EmployeeBeans, String> NameCol;
     @FXML
-    private TableColumn<Employee, Number> EmployeeCol;
+    private TableColumn<EmployeeBeans, Number> EmployeeCol;
     @FXML
-    private TableColumn<Employee, String> FirstNameCol;
+    private TableColumn<EmployeeBeans, String> FirstNameCol;
     @FXML
-    private TableColumn<Employee, String> PhoneNrCol;
+    private TableColumn<EmployeeBeans, String> PhoneNrCol;
     @FXML
-    private TableColumn<Employee, String> BirthdayCol;
+    private TableColumn<EmployeeBeans, String> BirthdayCol;
     @FXML
-    private TableColumn<Employee, String> RightsCol;
+    private TableColumn<EmployeeBeans, String> RightsCol;
 
     @FXML
     private TextField NameField;
@@ -121,7 +121,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
         addBtn.setDisable          (true);
         deleteBtn.setDisable       (true);
-        employeeTable.setItems     (observableEmployeeList);
+        employeeTable.setItems     (observableEmployeeBeansList);
         employeeTable.setEditable  (true);
 
         employeeTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -164,46 +164,46 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     @FXML
     void EmployeeNrCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Employee, Number> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Employee,Number>) e;
-        Employee employee = cellEditEvent.getRowValue();
-        employee.setEmployeeNr(cellEditEvent.getNewValue().intValue());
+        TableColumn.CellEditEvent<EmployeeBeans, Number> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,Number>) e;
+        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
+        employeeBeans.setEmployeeNr(cellEditEvent.getNewValue().intValue());
 
     }
 
     @FXML
     void NameCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Employee, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Employee,String>) e;
-        Employee employee = cellEditEvent.getRowValue();
-        employee.setName(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
+        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
+        employeeBeans.setName(cellEditEvent.getNewValue());
 
-        Employee employeerow= (Employee) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Employee, String>) e).getTablePosition().getRow());
+        EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
         System.out.println(employeerow.getEmployeeNr());
     }
     @FXML
     void FirstName_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Employee, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Employee,String>) e;
-        Employee employee = cellEditEvent.getRowValue();
-        employee.setFirstName(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
+        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
+        employeeBeans.setFirstName(cellEditEvent.getNewValue());
 
-        Employee employeerow= (Employee) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Employee, String>) e).getTablePosition().getRow());
+        EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
         System.out.println(employeerow.getEmployeeNr());
     }
     @FXML
     void Telephone_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Employee, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Employee,String>) e;
-        Employee employee = cellEditEvent.getRowValue();
-        employee.setPhoneNr(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
+        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
+        employeeBeans.setPhoneNr(cellEditEvent.getNewValue());
 
-        Employee employeerow= (Employee) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Employee, String>) e).getTablePosition().getRow());
+        EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
         System.out.println(employeerow.getEmployeeNr());
     }
@@ -211,24 +211,24 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     @FXML
     void Birthday_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Employee, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Employee,String>) e;
-        Employee employee = cellEditEvent.getRowValue();
-        employee.setBirthday(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
+        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
+        employeeBeans.setBirthday(cellEditEvent.getNewValue());
 
-        Employee employeerow= (Employee) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Employee, String>) e).getTablePosition().getRow());
+        EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
         System.out.println(employeerow.getEmployeeNr());
     }
     @FXML
     void Rights_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Employee, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Employee,String>) e;
-        Employee employee = cellEditEvent.getRowValue();
-        employee.setRights(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
+        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
+        employeeBeans.setRights(cellEditEvent.getNewValue());
 
-        Employee employeerow= (Employee) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Employee, String>) e).getTablePosition().getRow());
+        EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
         System.out.println(employeerow.getEmployeeNr());
     }
@@ -243,16 +243,16 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
             if(RightsBox.getValue().equals("Kassierer"))
             {
 
-                Employee employee = new Employee();
-                employee.setEmployeeNr  (   getnextNumber());
-                employee.setName        (   NameField.getText());
-                employee.setFirstName   (   FirstNameField.getText());
-                employee.setPhoneNr     (   TelephoneField.getText());
-                employee.setBirthday    (   BirthdayField.getText());
-                employee.setRights      (   RightsBox.getValue().toString());
+                EmployeeBeans employeeBeans = new EmployeeBeans();
+                employeeBeans.setEmployeeNr  (   getnextNumber());
+                employeeBeans.setName        (   NameField.getText());
+                employeeBeans.setFirstName   (   FirstNameField.getText());
+                employeeBeans.setPhoneNr     (   TelephoneField.getText());
+                employeeBeans.setBirthday    (   BirthdayField.getText());
+                employeeBeans.setRights      (   RightsBox.getValue().toString());
 
-                observableEmployeeList.add(employee);
-                System.out.println(employee.printString());
+                observableEmployeeBeansList.add(employeeBeans);
+                System.out.println(employeeBeans.printString());
 
 
                 NameField.clear();
@@ -265,16 +265,16 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
             }
             if(RightsBox.getValue().equals("Teamleiter"))
             {
-                Employee employee = new Employee();
-                employee.setEmployeeNr  (   5);
-                employee.setName        (   NameField.getText());
-                employee.setFirstName   (   FirstNameField.getText());
-                employee.setPhoneNr     (   TelephoneField.getText());
-                employee.setBirthday    (   BirthdayField.getText());
-                employee.setRights      (   RightsBox.getValue().toString());
+                EmployeeBeans employeeBeans = new EmployeeBeans();
+                employeeBeans.setEmployeeNr  (   5);
+                employeeBeans.setName        (   NameField.getText());
+                employeeBeans.setFirstName   (   FirstNameField.getText());
+                employeeBeans.setPhoneNr     (   TelephoneField.getText());
+                employeeBeans.setBirthday    (   BirthdayField.getText());
+                employeeBeans.setRights      (   RightsBox.getValue().toString());
 
-                observableEmployeeList.add(employee);
-                System.out.println(employee.printString());
+                observableEmployeeBeansList.add(employeeBeans);
+                System.out.println(employeeBeans.printString());
 
 
                 NameField.clear();
@@ -288,7 +288,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     @FXML
     void handleDeleteButtonClick(ActionEvent event)
     {
-        if(!observableEmployeeList.isEmpty())
+        if(!observableEmployeeBeansList.isEmpty())
         {
             System.out.println("Löschen gedrückt");
             Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "Bestätigen", ButtonType.OK, ButtonType.CANCEL);
@@ -300,7 +300,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
             if(deleteAlert.getResult() == ButtonType.OK)
             {
-                observableEmployeeList.removeAll(employeeTable.getSelectionModel().getSelectedItems());
+                observableEmployeeBeansList.removeAll(employeeTable.getSelectionModel().getSelectedItems());
                 employeeTable.getSelectionModel().clearSelection();
             }
             else
@@ -329,12 +329,12 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         RightsBox.setValue("Berechtigung");
     }
     @FXML
-    void handleSave(ObservableList<Employee> observableStockList, File file) {
+    void handleSave(ObservableList<EmployeeBeans> observableStockList, File file) {
         try {
             BufferedWriter outWriter = new BufferedWriter(new FileWriter(file));
 
-            for(Employee employee : observableStockList) {
-                outWriter.write(employee.printString());
+            for(EmployeeBeans employeeBeans : observableStockList) {
+                outWriter.write(employeeBeans.printString());
                 outWriter.newLine();
             }
             System.out.println(observableStockList.toString());
@@ -354,16 +354,16 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
     void filterNameList(String oldValue,String newValue)
     {
-        ObservableList<Employee> filteredList = FXCollections.observableArrayList();
+        ObservableList<EmployeeBeans> filteredList = FXCollections.observableArrayList();
 
         if(filterInput == null || (newValue.length() < oldValue.length()) || newValue == null)
         {
-            employeeTable.setItems(observableEmployeeList);
+            employeeTable.setItems(observableEmployeeBeansList);
         }
         else
         {
             newValue = newValue.toUpperCase();
-            for(Employee items : employeeTable.getItems())
+            for(EmployeeBeans items : employeeTable.getItems())
             {
                 String filterName = items.getName();
 

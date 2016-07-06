@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 /**
  * Created by karls_000 on 23.06.2016.
  */
-public class Stock {
+public class StockBeans {
 
     private StringProperty Barcode = new SimpleStringProperty(this, "Barcode", "0");
     public String getBarcode() {

@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<SplitPane dividerPositions="0.7506265664160401" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerCustomer">
+<SplitPane dividerPositions="0.7506265664160401" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerCustomer">
     <items>
-    <AnchorPane>
+    <AnchorPane prefHeight="454.0" prefWidth="798.0">
          <children>
-            <HBox minWidth="-Infinity" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox minWidth="-Infinity" prefHeight="454.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <MenuBar fx:id="fileMenu" prefWidth="1000.0" HBox.hgrow="ALWAYS">
+                  <MenuBar fx:id="fileMenu" prefHeight="25.0" prefWidth="800.0" HBox.hgrow="ALWAYS">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
@@ -32,18 +32,18 @@
                   </MenuBar>
                </children>
             </HBox>
-            <TableView fx:id="CustomerTable" layoutX="1.0" layoutY="30.0" prefHeight="566.0" prefWidth="1000.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <TableView fx:id="CustomerTable" layoutX="100.0" layoutY="23.0" prefHeight="423.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
               <columns>
-                  <TableColumn fx:id="CustomerIDCol" editable="false" onEditCommit="#CustomerIDCol_OnEditCommit" prefWidth="124.0" text="KundenNr" />
-                  <TableColumn fx:id="genderCol" onEditCommit="#BirthdayCol_OnEditCommit" prefWidth="170.0" text="Anrede" />
-                  <TableColumn fx:id="lastNameCol" onEditCommit="#lastNameCol_OnEditCommit" prefWidth="131.0" text="Nachname" />
-                <TableColumn fx:id="firstNameCol" onEditCommit="#firstNameCol_OnEditCommit" prefWidth="121.0" text="Vorname" />
-                <TableColumn fx:id="TelephoneCol" onEditCommit="#TelephoneCol_OnEditCommit" prefWidth="149.0" text="Telefon" />
-                  <TableColumn fx:id="BirthdayCol" onEditCommit="#BirthdayCol_OnEditCommit" prefWidth="170.0" text="Geburtsdatum" />
+                  <TableColumn fx:id="CustomerIDCol" editable="false" minWidth="134.0" onEditCommit="#CustomerIDCol_OnEditCommit" prefWidth="-1.0" text="KundenNr" />
+                  <TableColumn fx:id="genderCol" minWidth="134.0" onEditCommit="#BirthdayCol_OnEditCommit" prefWidth="-1.0" text="Anrede" />
+                  <TableColumn fx:id="lastNameCol" minWidth="134.0" onEditCommit="#lastNameCol_OnEditCommit" prefWidth="-1.0" text="Nachname" />
+                <TableColumn fx:id="firstNameCol" minWidth="134.0" onEditCommit="#firstNameCol_OnEditCommit" prefWidth="-1.0" text="Vorname" />
+                <TableColumn fx:id="TelephoneCol" minWidth="134.0" onEditCommit="#TelephoneCol_OnEditCommit" prefWidth="-1.0" text="Telefon" />
+                  <TableColumn fx:id="BirthdayCol" minWidth="134.0" onEditCommit="#BirthdayCol_OnEditCommit" prefWidth="-1.0" text="Geburtsdatum" />
               </columns>
             </TableView>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="1000.0" prefHeight="100.0" prefWidth="1000.0">
+    <AnchorPane minHeight="0.0" minWidth="800.0" prefHeight="138.0" prefWidth="800.0">
          <children>
             <HBox />
             <TextField fx:id="firstNameField" layoutX="14.0" layoutY="56.0" promptText="Vorname" />

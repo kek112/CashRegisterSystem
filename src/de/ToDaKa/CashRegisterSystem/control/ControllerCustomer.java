@@ -34,23 +34,23 @@ public class ControllerCustomer implements Initializable {
     private URL location;
 
     @FXML // fx:id="CustomerIDCCol"
-    private TableColumn<Customer, String> CustomerIDCol;
+    private TableColumn<CustomerBeans, String> CustomerIDCol;
 
 
     @FXML // fx:id="firstNameCol"
-    private TableColumn<Customer, String> firstNameCol;
+    private TableColumn<CustomerBeans, String> firstNameCol;
 
     @FXML // fx:id="lastNameCol"
-    private TableColumn<Customer, String> lastNameCol;
+    private TableColumn<CustomerBeans, String> lastNameCol;
 
     @FXML // fx:id="TelephoneCol"
-    private TableColumn<Customer, String> TelephoneCol;
+    private TableColumn<CustomerBeans, String> TelephoneCol;
 
     @FXML // fx:id="BirthdayCol"
-    private TableColumn<Customer, String> BirthdayCol;
+    private TableColumn<CustomerBeans, String> BirthdayCol;
 
     @FXML // fx:id="genderCol"
-    private TableColumn<Customer, String> genderCol;
+    private TableColumn<CustomerBeans, String> genderCol;
 
     @FXML // fx:id="firstNameField"
     private TextField firstNameField;
@@ -72,7 +72,7 @@ public class ControllerCustomer implements Initializable {
     ObservableList<String> genderBoxData = FXCollections.observableArrayList();
 
     @FXML
-    private TableView<Customer> CustomerTable;
+    private TableView<CustomerBeans> CustomerTable;
 
     @FXML // fx:id="addBtn"
     private Button addBtn;
@@ -83,7 +83,7 @@ public class ControllerCustomer implements Initializable {
     @FXML
     private MenuBar fileMenu;
 
-    ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList();
+    ObservableList<CustomerBeans> observableCustomerBeansList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,7 +129,7 @@ public class ControllerCustomer implements Initializable {
 
         addBtn.setDisable(true);
         deleteBtn.setDisable(true);
-        CustomerTable.setItems(observableCustomerList);
+        CustomerTable.setItems(observableCustomerBeansList);
         CustomerTable.setEditable(true);
         CustomerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         CustomerTable.setPlaceholder(new Label("Tabelle ist leer"));
@@ -161,29 +161,29 @@ public class ControllerCustomer implements Initializable {
          */
             if (isValidInput(event)) {
                 if (genderBox.getValue().equals("Herr")) {
-                    Customer customer = new Customer();
-                    customer.setFirstName(firstNameField.getText());
-                    customer.setLastName(lastNameField.getText());
-                    customer.setTelephone(TelephoneField.getText());
-                    customer.setBirthday(BirthdayField.getText());
-                    customer.setGender(genderBox.getValue());
-                    observableCustomerList.add(customer);
-                    System.out.println(customer.toString());
-                    firstNameField.clear();
-                    lastNameField.clear();
-                    BirthdayField.clear();
-                    TelephoneField.clear();
-                    genderBox.setValue("Anrede");
+                        CustomerBeans customerBeans = new CustomerBeans();
+                        customerBeans.setFirstName(firstNameField.getText());
+                        customerBeans.setLastName(lastNameField.getText());
+                        customerBeans.setTelephone(TelephoneField.getText());
+                        customerBeans.setBirthday(BirthdayField.getText());
+                        customerBeans.setGender(genderBox.getValue());
+                        observableCustomerBeansList.add(customerBeans);
+                        System.out.println(customerBeans.toString());
+                        firstNameField.clear();
+                        lastNameField.clear();
+                        BirthdayField.clear();
+                        TelephoneField.clear();
+                        genderBox.setValue("Anrede");
                 }
                 if (genderBox.getValue().equals("Frau")) {
-                    Customer customer = new Customer();
-                    customer.setFirstName(firstNameField.getText());
-                    customer.setLastName(lastNameField.getText());
-                    customer.setTelephone(TelephoneField.getText());
-                    customer.setBirthday(BirthdayField.getText());
-                    customer.setGender(genderBox.getValue());
-                    observableCustomerList.add(customer);
-                    System.out.println(customer.toString());
+                    CustomerBeans customerBeans = new CustomerBeans();
+                    customerBeans.setFirstName(firstNameField.getText());
+                    customerBeans.setLastName(lastNameField.getText());
+                    customerBeans.setTelephone(TelephoneField.getText());
+                    customerBeans.setBirthday(BirthdayField.getText());
+                    customerBeans.setGender(genderBox.getValue());
+                    observableCustomerBeansList.add(customerBeans);
+                    System.out.println(customerBeans.toString());
                     firstNameField.clear();
                     lastNameField.clear();
                     BirthdayField.clear();
@@ -272,43 +272,43 @@ public class ControllerCustomer implements Initializable {
     handle column edits
      */
     public void CustomerIDCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<Customer, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Customer, String>) e;
-        Customer customer = cellEditEvent.getRowValue();
-        customer.setCustomerID(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
+        CustomerBeans customerBeans = cellEditEvent.getRowValue();
+        customerBeans.setCustomerID(cellEditEvent.getNewValue());
     }
     public void firstNameCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<Customer, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Customer, String>) e;
-        Customer customer = cellEditEvent.getRowValue();
-        customer.setFirstName(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
+        CustomerBeans customerBeans = cellEditEvent.getRowValue();
+        customerBeans.setFirstName(cellEditEvent.getNewValue());
     }
     public void lastNameCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<Customer, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Customer, String>) e;
-        Customer customer = cellEditEvent.getRowValue();
-        customer.setLastName(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
+        CustomerBeans customerBeans = cellEditEvent.getRowValue();
+        customerBeans.setLastName(cellEditEvent.getNewValue());
     }
     public void TelephoneCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<Customer, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Customer, String>) e;
-        Customer customer = cellEditEvent.getRowValue();
-        customer.setTelephone(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
+        CustomerBeans customerBeans = cellEditEvent.getRowValue();
+        customerBeans.setTelephone(cellEditEvent.getNewValue());
     }
     public void BirthdayCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<Customer, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Customer, String>) e;
-        Customer customer = cellEditEvent.getRowValue();
-        customer.setBirthday(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
+        CustomerBeans customerBeans = cellEditEvent.getRowValue();
+        customerBeans.setBirthday(cellEditEvent.getNewValue());
     }
     public void genderCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<Customer, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Customer, String>) e;
-        Customer customer = cellEditEvent.getRowValue();
-        customer.setGender(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
+        CustomerBeans customerBeans = cellEditEvent.getRowValue();
+        customerBeans.setGender(cellEditEvent.getNewValue());
     }
     public void handleDeleteButtonClick(ActionEvent event) {
-        if(!observableCustomerList.isEmpty()) {
+        if(!observableCustomerBeansList.isEmpty()) {
             System.out.println("Löschen Button gedrückt");
             Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "OK", ButtonType.OK, ButtonType.CANCEL);
             Window owner = ((Node) event.getTarget()).getScene().getWindow();
@@ -317,7 +317,7 @@ public class ControllerCustomer implements Initializable {
             deleteAlert.initOwner(owner);
             deleteAlert.showAndWait();
             if(deleteAlert.getResult() == ButtonType.OK) {
-                observableCustomerList.removeAll(CustomerTable.getSelectionModel().getSelectedItems());
+                observableCustomerBeansList.removeAll(CustomerTable.getSelectionModel().getSelectedItems());
                 CustomerTable.getSelectionModel().clearSelection();
             }
             else {
@@ -334,17 +334,17 @@ public class ControllerCustomer implements Initializable {
     }
     //filter table by first or last name
     public void filterCustomerList(String oldValue, String newValue) {
-        ObservableList<Customer> filteredList = FXCollections.observableArrayList();
+        ObservableList<CustomerBeans> filteredList = FXCollections.observableArrayList();
         if(filterInput == null || (newValue.length() < oldValue.length()) || newValue == null) {
-            CustomerTable.setItems(observableCustomerList);
+            CustomerTable.setItems(observableCustomerBeansList);
         }
         else {
             newValue = newValue.toUpperCase();
-            for(Customer customer : CustomerTable.getItems()) {
-                String filterFirstName = customer.getFirstName();
-                String filterLastName = customer.getLastName();
+            for(CustomerBeans customerBeans : CustomerTable.getItems()) {
+                String filterFirstName = customerBeans.getFirstName();
+                String filterLastName = customerBeans.getLastName();
                 if(filterFirstName.toUpperCase().contains(newValue) || filterLastName.toUpperCase().contains(newValue)) {
-                    filteredList.add(customer);
+                    filteredList.add(customerBeans);
                 }
             }
             CustomerTable.setItems(filteredList);
@@ -355,7 +355,7 @@ public class ControllerCustomer implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Kunden Tabelle speichern");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        if(observableCustomerList.isEmpty()) {
+        if(observableCustomerBeansList.isEmpty()) {
             secondaryStage.initOwner(this.fileMenu.getScene().getWindow());
             Alert emptyTableAlert = new Alert(Alert.AlertType.ERROR, "LEERE TABELLE", ButtonType.OK);
             emptyTableAlert.setContentText("Es gibt nichts zu speichern");
@@ -373,15 +373,15 @@ public class ControllerCustomer implements Initializable {
             }
         }
     }
-    public void saveFile(ObservableList<Customer> observableCustomerList, File file) {
+    public void saveFile(ObservableList<CustomerBeans> observableCustomerBeansList, File file) {
         try {
             BufferedWriter outWriter = new BufferedWriter(new FileWriter(file));
 
-            for(Customer customer : observableCustomerList) {
-                outWriter.write(customer.toString());
+            for(CustomerBeans customerBeans : observableCustomerBeansList) {
+                outWriter.write(customerBeans.toString());
                 outWriter.newLine();
             }
-            System.out.println(observableCustomerList.toString());
+            System.out.println(observableCustomerBeansList.toString());
             outWriter.close();
         } catch (IOException e) {
             Alert ioAlert = new Alert(Alert.AlertType.ERROR, "OOPS!", ButtonType.OK);

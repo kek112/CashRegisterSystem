@@ -41,7 +41,7 @@ public class ControllerLoginScreen
         {
             if (checkuser(TextfieldNameLoginScreen.getText(),TextfieldPasswordLoginScreen.getText()))
             {
-              System.out.println(CFObject.switchScene(event,"Customer_Screen.fxml"));
+              System.out.println(CFObject.switchScene(event,"CustomerBuy_Screen.fxml"));
             }
             else
             {

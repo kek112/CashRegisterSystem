@@ -3,7 +3,7 @@ package de.ToDaKa.CashRegisterSystem.model.Beans;
 import javafx.beans.property.*;
 
 
-public class Customer {
+public class CustomerBeans {
 
 
 

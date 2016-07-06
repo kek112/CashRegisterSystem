@@ -6,7 +6,7 @@ import sun.util.calendar.BaseCalendar;
 /**
  * Created by karls_000 on 27.06.2016.
  */
-public class Employee
+public class EmployeeBeans
 {
 
         private IntegerProperty EmployeeNr = new SimpleIntegerProperty(this, "MitarbeiterNr", 0);

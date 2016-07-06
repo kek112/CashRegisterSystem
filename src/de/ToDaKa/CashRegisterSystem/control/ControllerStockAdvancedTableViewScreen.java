@@ -43,19 +43,19 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @FXML
-    private TableColumn<Stock, String> BarcodeCol1;
+    private TableColumn<StockBeans, String> BarcodeCol1;
     @FXML
-    private TableColumn<Stock, String> NameCol;
+    private TableColumn<StockBeans, String> NameCol;
     @FXML
-    private TableColumn<Stock, Number> AmountCol;
+    private TableColumn<StockBeans, Number> AmountCol;
     @FXML
-    private TableColumn<Stock, Number> PriceCol;
+    private TableColumn<StockBeans, Number> PriceCol;
     @FXML
-    private TableColumn<Stock, String> isFoodCol;
+    private TableColumn<StockBeans, String> isFoodCol;
     @FXML
-    private TableView<Stock> Stocktable;
+    private TableView<StockBeans> Stocktable;
 
-    ObservableList<Stock> observableStockList = FXCollections.observableArrayList();
+    ObservableList<StockBeans> observableStockBeansList = FXCollections.observableArrayList();
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //ADD MENU
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,7 +125,7 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
 
         addBtn.setDisable       (true);
         deleteBtn.setDisable    (true);
-        Stocktable.setItems     (observableStockList);
+        Stocktable.setItems     (observableStockBeansList);
         Stocktable.setEditable  (true);
 
         Stocktable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -171,7 +171,7 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Inventar abspeichern");
       //  fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        if(observableStockList.isEmpty())
+        if(observableStockBeansList.isEmpty())
         {
             secondaryStage.initOwner(this.fileMenu.getScene().getWindow());
             Alert emptyTableAlert = new Alert(Alert.AlertType.ERROR, "Tabelle leer", ButtonType.OK);
@@ -223,23 +223,23 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     @FXML
   private  void BarcodeCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Stock,String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Stock,String>) e;
-        Stock stock = cellEditEvent.getRowValue();
+        TableColumn.CellEditEvent<StockBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<StockBeans,String>) e;
+        StockBeans stockBeans = cellEditEvent.getRowValue();
 
-        stock.setBarcode((String) cellEditEvent.getNewValue());
+        stockBeans.setBarcode((String) cellEditEvent.getNewValue());
 
     }
 
     @FXML
     private void NameCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Stock,String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Stock,String>) e;
-        Stock stock = cellEditEvent.getRowValue();
-        stock.setName(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<StockBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<StockBeans,String>) e;
+        StockBeans stockBeans = cellEditEvent.getRowValue();
+        stockBeans.setName(cellEditEvent.getNewValue());
 
-        Stock stockrow= (Stock) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Stock, String>) e).getTablePosition().getRow());
+        StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, String>) e).getTablePosition().getRow());
 
         System.out.println(stockrow.getBarcode());
     }
@@ -247,35 +247,35 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     @FXML
     private void AmountCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Stock,Number> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Stock,Number>) e;
-        Stock stock = cellEditEvent.getRowValue();
-        stock.setAmount(cellEditEvent.getNewValue().intValue());
+        TableColumn.CellEditEvent<StockBeans,Number> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<StockBeans,Number>) e;
+        StockBeans stockBeans = cellEditEvent.getRowValue();
+        stockBeans.setAmount(cellEditEvent.getNewValue().intValue());
 
-        Stock stockrow= (Stock) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Stock, Number>) e).getTablePosition().getRow());
+        StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, Number>) e).getTablePosition().getRow());
 
     }
 
     @FXML
     private void PriceCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Stock,Number> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Stock,Number>) e;
-        Stock stock = cellEditEvent.getRowValue();
-        stock.setPrice(cellEditEvent.getNewValue().doubleValue());
+        TableColumn.CellEditEvent<StockBeans,Number> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<StockBeans,Number>) e;
+        StockBeans stockBeans = cellEditEvent.getRowValue();
+        stockBeans.setPrice(cellEditEvent.getNewValue().doubleValue());
 
-        Stock stockrow= (Stock) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Stock, Number>) e).getTablePosition().getRow());
+        StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, Number>) e).getTablePosition().getRow());
     }
 
     @FXML
     private void isFoodCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<Stock,String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<Stock,String>) e;
-        Stock stock = cellEditEvent.getRowValue();
-        stock.setIsFood((String) cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<StockBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<StockBeans,String>) e;
+        StockBeans stockBeans = cellEditEvent.getRowValue();
+        stockBeans.setIsFood((String) cellEditEvent.getNewValue());
 
-        Stock stockrow= (Stock) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<Stock, String>) e).getTablePosition().getRow());
+        StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, String>) e).getTablePosition().getRow());
     }
     //////////////////////////////////////////////////
     //HANDLE Buttons
@@ -288,15 +288,15 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
             if(isFoodBox.getValue().equals("Ja"))
             {
 
-                Stock stock = new Stock();
-                stock.setName   (   NameTextfeld.getText());
-                stock.setBarcode(   BarcodeTextfield.getText());
-                stock.setAmount (   Integer.parseInt(AmountTextfield.getText()) );
-                stock.setPrice  (   Float.parseFloat(PriceField.getText())      );
-                stock.setIsFood (   isFoodBox.getValue());
+                StockBeans stockBeans = new StockBeans();
+                stockBeans.setName   (   NameTextfeld.getText());
+                stockBeans.setBarcode(   BarcodeTextfield.getText());
+                stockBeans.setAmount (   Integer.parseInt(AmountTextfield.getText()) );
+                stockBeans.setPrice  (   Float.parseFloat(PriceField.getText())      );
+                stockBeans.setIsFood (   isFoodBox.getValue());
 
-                observableStockList.add(stock);
-                System.out.println(stock.printString());
+                observableStockBeansList.add(stockBeans);
+                System.out.println(stockBeans.printString());
 
 
                 BarcodeTextfield.clear();
@@ -309,15 +309,15 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
             }
             if(isFoodBox.getValue().equals("Nein"))
             {
-                Stock stock = new Stock();
-                stock.setName   (   NameTextfeld.getText());
-                stock.setBarcode(   BarcodeTextfield.getText());
-                stock.setAmount (   Integer.parseInt(AmountTextfield.getText()) );
-                stock.setPrice  (   Float.parseFloat(PriceField.getText())      );
-                stock.setIsFood (   isFoodBox.getValue());
+                StockBeans stockBeans = new StockBeans();
+                stockBeans.setName   (   NameTextfeld.getText());
+                stockBeans.setBarcode(   BarcodeTextfield.getText());
+                stockBeans.setAmount (   Integer.parseInt(AmountTextfield.getText()) );
+                stockBeans.setPrice  (   Float.parseFloat(PriceField.getText())      );
+                stockBeans.setIsFood (   isFoodBox.getValue());
 
-                observableStockList.add(stock);
-                System.out.println(stock.printString());
+                observableStockBeansList.add(stockBeans);
+                System.out.println(stockBeans.printString());
 
                 BarcodeTextfield.clear();
                 AmountTextfield.clear();
@@ -331,7 +331,7 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     @FXML
     private void handleDeleteButtonClick(ActionEvent event)
     {
-        if(!observableStockList.isEmpty())
+        if(!observableStockBeansList.isEmpty())
         {
             System.out.println("Löschen gedrückt");
             Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "Bestätigen", ButtonType.OK, ButtonType.CANCEL);
@@ -343,7 +343,7 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
 
             if(deleteAlert.getResult() == ButtonType.OK)
             {
-                observableStockList.removeAll(Stocktable.getSelectionModel().getSelectedItems());
+                observableStockBeansList.removeAll(Stocktable.getSelectionModel().getSelectedItems());
                 Stocktable.getSelectionModel().clearSelection();
             }
             else
@@ -369,16 +369,16 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
 
     private void filterNameList(String oldValue,String newValue)
     {
-        ObservableList<Stock> filteredList = FXCollections.observableArrayList();
+        ObservableList<StockBeans> filteredList = FXCollections.observableArrayList();
 
         if(filterInput == null || (newValue.length() < oldValue.length()) || newValue == null)
         {
-            Stocktable.setItems(observableStockList);
+            Stocktable.setItems(observableStockBeansList);
         }
         else
         {
             newValue = newValue.toUpperCase();
-            for(Stock items : Stocktable.getItems())
+            for(StockBeans items : Stocktable.getItems())
             {
                 String filterName = items.getName();
 
@@ -394,15 +394,15 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     }
 
 
-    private void saveFile(ObservableList<Stock> observableStockList, File file) {
+    private void saveFile(ObservableList<StockBeans> observableStockBeansList, File file) {
         try {
             BufferedWriter outWriter = new BufferedWriter(new FileWriter(file));
 
-            for(Stock stock : observableStockList) {
-                outWriter.write(stock.printString());
+            for(StockBeans stockBeans : observableStockBeansList) {
+                outWriter.write(stockBeans.printString());
                 outWriter.newLine();
             }
-            System.out.println(observableStockList.toString());
+            System.out.println(observableStockBeansList.toString());
             outWriter.close();
         } catch (IOException e) {
             Alert ioAlert = new Alert(Alert.AlertType.ERROR, "Ups!", ButtonType.OK);
