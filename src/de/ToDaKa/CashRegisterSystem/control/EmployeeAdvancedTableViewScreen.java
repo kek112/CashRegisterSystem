@@ -91,6 +91,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         employeeTable.setEditable(true);
 
 
+
         NameCol.setOnEditCommit         (e->NameCol_OnEditCommit(e));
         FirstNameCol.setOnEditCommit    (e->FirstName_OnEditCommit(e));
         PhoneNrCol.setOnEditCommit      (e->Telephone_OnEditCommit(e));
@@ -119,6 +120,11 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         RightsBoxData.add("Teamleiter");
         RightsBox.setItems(RightsBoxData);
 
+        //////////////////////////////////////////////
+        /////////////////////////////////////////////
+        //FILL LIST Funktion    FillBeanList()
+        //////////////////////////////////////////////
+        /////////////////////////////////////////////////
         addBtn.setDisable          (true);
         deleteBtn.setDisable       (true);
         employeeTable.setItems     (observableEmployeeBeansList);
@@ -474,4 +480,21 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     {
         return 2;
     }
+
+    void FillBeanList()
+    {
+        EmployeeBeans TempEmp=new EmployeeBeans();
+
+        /*getEntryfromDatase;
+        TempEmp.setFirstName();
+        TempEmp.setName();
+        TempEmp.setEmployeeNr();
+        TempEmp.setRights();
+        TempEmp.setPhoneNr();
+        TempEmp.setBirthday();
+      */
+
+        observableEmployeeBeansList.add(TempEmp);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

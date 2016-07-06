@@ -126,7 +126,11 @@ public class ControllerCustomer implements Initializable {
 
         genderBox.setItems(genderBoxData);
 
-
+        //////////////////////////////////////////////
+        /////////////////////////////////////////////
+        //FILL LIST Funktion    FillBeanList()
+        //////////////////////////////////////////////
+        /////////////////////////////////////////////////
         addBtn.setDisable(true);
         deleteBtn.setDisable(true);
         CustomerTable.setItems(observableCustomerBeansList);
@@ -407,6 +411,19 @@ public class ControllerCustomer implements Initializable {
             exitAlert.close();
         }
     }
+    void FillBeanList() {
+        CustomerBeans TempCust = new CustomerBeans();
+       /* getEntryfromDatase
+       TempCust.setBirthday();
+        TempCust.setCustomerID();
+        TempCust.setFirstName();
+        TempCust.setGender();
+        TempCust.setLastName();
+        TempCust.setTelephone();
+        */
+        observableCustomerBeansList.add(TempCust);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 

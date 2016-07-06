@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javafx.util.converter.NumberStringConverter;
@@ -122,7 +123,11 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
         isFoodBoxData.add(new String("Nein"));
 
         isFoodBox.setItems(isFoodBoxData);
-
+        //////////////////////////////////////////////
+        /////////////////////////////////////////////
+        //FILL LIST Funktion    FillBeanList()
+        //////////////////////////////////////////////
+        /////////////////////////////////////////////////
         addBtn.setDisable       (true);
         deleteBtn.setDisable    (true);
         Stocktable.setItems     (observableStockBeansList);
@@ -506,5 +511,18 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
 
 
    }
+    void FillBeanList()
+    {
+        StockBeans TempItem = new StockBeans();
+
+        /*getEntryfromDatase
+        TempItem.setName();
+        TempItem.setAmount();
+        TempItem.setBarcode();
+        TempItem.setIsFood();
+        TempItem.setPrice();
+        */
+        observableStockBeansList.add(TempItem);
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
