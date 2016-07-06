@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<SplitPane dividerPositions="0.7506265664160401" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerStockAdvancedTableViewScreen">
+<SplitPane dividerPositions="0.7506265664160401" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerCustomerBuyScreen">
     <items>
     <AnchorPane prefHeight="450.0">
          <children>
@@ -27,9 +27,9 @@
                     </menus>
                   </MenuBar>
                </children></HBox>
-            <TableView fx:id="Stocktable" layoutX="1.0" layoutY="24.0" prefHeight="450.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+            <TableView fx:id="StockTable" layoutX="1.0" layoutY="24.0" prefHeight="450.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
               <columns>
-                  <TableColumn fx:id="BarcodeCol1" editable="false" minWidth="160.0" onEditCommit="#BarcodeCol_OnEditCommit" prefWidth="-1.0" text="Barcode" />
+                  <TableColumn fx:id="BarcodeCol" editable="false" minWidth="160.0" onEditCommit="#BarcodeCol_OnEditCommit" prefWidth="-1.0" text="Barcode" />
                   <TableColumn fx:id="NameCol" minWidth="160.0" onEditCommit="#NameCol_OnEditCommit" prefWidth="-1.0" text="Name" />
                   <TableColumn fx:id="AmountCol" minWidth="160.0" onEditCommit="#AmountCol_OnEditCommit" prefWidth="-1.0" text="Anzahl" />
                   <TableColumn fx:id="PriceCol" minWidth="160.0" onEditCommit="#PriceCol_OnEditCommit" prefWidth="-1.0" text="Preis" />
@@ -39,11 +39,12 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="800.0">
          <children>
-            <TextField layoutX="14.0" layoutY="20.0" promptText="Barcode" />
-            <TextField layoutX="14.0" layoutY="61.0" prefHeight="25.0" prefWidth="149.0" promptText="Anzahl" text="1" />
-            <Button layoutX="268.0" layoutY="21.0" mnemonicParsing="false" text="Abbrechen" />
-            <Button layoutX="174.0" layoutY="20.0" mnemonicParsing="false" text="Hinzufügen" />
-            <Button layoutX="683.0" layoutY="20.0" mnemonicParsing="false" text="Entfernen" />
+            <TextField fx:id="barcodeField" layoutX="14.0" layoutY="20.0" promptText="Barcode" />
+            <TextField fx:id="amountField" layoutX="14.0" layoutY="61.0" prefHeight="25.0" prefWidth="149.0" promptText="Anzahl" text="1" />
+            <Button fx:id="addButton" layoutX="174.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
+             <Button fx:id="ClearButton" layoutX="268.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Abbrechen" />
+            <Button fx:id="deleteButton" layoutX="683.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Entfernen" />
+            <Button fx:id="CheckoutButton" layoutX="684.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleCheckoutClick" text="Checkout" />
          </children></AnchorPane>
   </items>
 </SplitPane>
