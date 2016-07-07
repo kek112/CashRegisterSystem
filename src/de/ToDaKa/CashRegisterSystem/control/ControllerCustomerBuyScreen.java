@@ -274,6 +274,11 @@ public class ControllerCustomerBuyScreen implements Initializable {
             File file = fileChooser.showSaveDialog(secondaryStage);
             if(file != null) {
                 saveFile(StockTable.getItems(), file);
+
+
+                observableCustomerBuyBeansList.removeAll(StockTable.getItems());
+                StockTable.getSelectionModel().clearSelection();
+
             }
         }
     }
