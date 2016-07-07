@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.*;
 
+import de.ToDaKa.CashRegisterSystem.CurrentUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,7 +33,7 @@ import de.ToDaKa.CashRegisterSystem.model.Beans.*;
 
 public class EmployeeAdvancedTableViewScreen implements Initializable {
 
-    ControllerFunctions CFobject=new ControllerFunctions();
+    ControllerFunctions CFObject=new ControllerFunctions();
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -319,10 +320,16 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     void handleSave()
     {}
     @FXML
-    void handleBackButton(ActionEvent e)throws Exception
+    void handleBackButtonClick(ActionEvent event)throws Exception
     {
-        CFobject.switchScene(e,"");
-
+        if(CurrentUser.isAdmin())
+        {
+            CFObject.switchScene(event,"Admin_Menu.fxml");
+        }
+        else
+        {
+            CFObject.switchScene(event,"Employee_Menu.fxml");
+        }
     }
 
     @FXML

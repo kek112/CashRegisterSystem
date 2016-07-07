@@ -1,6 +1,7 @@
 package de.ToDaKa.CashRegisterSystem.control;
 
 
+import de.ToDaKa.CashRegisterSystem.CurrentUser;
 import de.ToDaKa.CashRegisterSystem.model.Beans.CustomerBuyBeans;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -30,6 +31,8 @@ import java.util.ResourceBundle;
 
 public class ControllerCustomerBuyScreen implements Initializable {
 
+
+    ControllerFunctions CFObject=new ControllerFunctions();
     @FXML
     private ResourceBundle resources;
 
@@ -75,6 +78,10 @@ public class ControllerCustomerBuyScreen implements Initializable {
 
     @FXML // fx:id="CheckoutButton"
     private Button CheckoutButton;
+
+    @FXML // fx:id="BackButton"
+    private Button BackButton;
+
 
     @FXML
     private MenuBar fileMenu;
@@ -252,7 +259,6 @@ public class ControllerCustomerBuyScreen implements Initializable {
         barcodeField.clear();
         amountField.setText("1");
     }
-    //filter table by first or last name
 
     public void handleCheckoutClick(ActionEvent event) {
         Stage secondaryStage = new Stage();
@@ -280,6 +286,18 @@ public class ControllerCustomerBuyScreen implements Initializable {
                 StockTable.getSelectionModel().clearSelection();
 
             }
+        }
+    }
+
+    @FXML
+    public void handleBackButtonClick(ActionEvent event)throws Exception {
+        if(CurrentUser.isAdmin())
+        {
+            CFObject.switchScene(event,"Admin_Menu.fxml");
+        }
+        else
+        {
+            CFObject.switchScene(event,"Employee_Menu.fxml");
         }
     }
     public void saveFile(ObservableList<CustomerBuyBeans> observableCustomerBuyBeansList, File file) {

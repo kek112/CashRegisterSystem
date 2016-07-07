@@ -56,7 +56,6 @@ public class Main extends Application {
 
         primaryStage.setTitle("ToDaKa-Kassensystem");
         LoginPane = (Parent)  FXMLLoader.load(getClass().getClassLoader().getResource("de/ToDaKa/CashRegisterSystem/view/Login_Screen.fxml"));
-
         Scene scene = new Scene(LoginPane);
         primaryStage.setScene(scene);
         primaryStage.show();

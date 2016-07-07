@@ -1,6 +1,7 @@
 package de.ToDaKa.CashRegisterSystem.control;
 
 
+import de.ToDaKa.CashRegisterSystem.CurrentUser;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +27,8 @@ import java.util.ResourceBundle;
 
 
 public class ControllerCustomer implements Initializable {
+    ControllerFunctions CFObject=new ControllerFunctions();
+
 
     @FXML
     private ResourceBundle resources;
@@ -79,6 +82,10 @@ public class ControllerCustomer implements Initializable {
 
     @FXML // fx:id="deleteBtn"
     private Button deleteBtn;
+
+
+    @FXML // fx:id="BackButton"
+    private Button BackButton;
 
     @FXML
     private MenuBar fileMenu;
@@ -335,7 +342,22 @@ public class ControllerCustomer implements Initializable {
         BirthdayField.clear();
         TelephoneField.clear();
         genderBox.setValue("Anrede");
+
+
     }
+    public void handleBackButtonClick(ActionEvent event)throws Exception {
+
+        if(CurrentUser.isAdmin())
+        {
+            CFObject.switchScene(event,"Admin_Menu.fxml");
+        }
+        else
+        {
+            CFObject.switchScene(event,"Employee_Menu.fxml");
+        }
+
+    }
+
     //filter table by first or last name
     public void filterCustomerList(String oldValue, String newValue) {
         ObservableList<CustomerBeans> filteredList = FXCollections.observableArrayList();

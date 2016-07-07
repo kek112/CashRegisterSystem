@@ -1,6 +1,7 @@
 package de.ToDaKa.CashRegisterSystem.control;
 
 
+import de.ToDaKa.CashRegisterSystem.CurrentUser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,29 +36,38 @@ public class ControllerLoginScreen
     }
 
     @FXML
-    private void handleButtonEventLogin(ActionEvent event)
+    private void handleButtonEventLogin(ActionEvent event)throws Exception
     {
-        try
-        {
             if (checkuser(TextfieldNameLoginScreen.getText(),TextfieldPasswordLoginScreen.getText()))
             {
-              System.out.println(CFObject.switchScene(event,"CustomerBuy_Screen.fxml"));
+                CurrentUser.setCurrentUserID(Integer.parseInt(TextfieldNameLoginScreen.getText()));
+                if(CurrentUser.isAdmin())
+                {
+                    CFObject.switchScene(event,"Admin_Menu.fxml");
+                }
+                else
+                {
+                    CFObject.switchScene(event,"Employee_Menu.fxml");
+                }
             }
             else
             {
 
             }
-        }
-        catch(Exception Ee)
-        {
-            System.out.print(Ee.getMessage());
-        }
+
     }
 
     boolean checkuser(String username,String password)
     {
+        if(username.isEmpty())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
         //getMD5();
-        return true;
     }
 
 

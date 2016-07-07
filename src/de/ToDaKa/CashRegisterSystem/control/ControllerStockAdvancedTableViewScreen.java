@@ -2,6 +2,7 @@ package de.ToDaKa.CashRegisterSystem.control;
 
 
 
+import de.ToDaKa.CashRegisterSystem.CurrentUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -35,7 +36,7 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
 {
 
 
-    ControllerFunctions CFobject=new ControllerFunctions();
+    ControllerFunctions CFObject=new ControllerFunctions();
     @FXML
     private MenuBar fileMenu;
 
@@ -199,24 +200,8 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
         }
     }
 
-    @FXML
-    private void handleBack()
-    {
-        System.out.println("Handle Back pressed");
-    }
-    @FXML
-    private void handleBackButton(ActionEvent e) throws Exception
-    {
-       CFobject.switchScene(e,"EmployeeAdvancedTableView_Screen.fxml");
 
-       /* Parent nextScene = (Parent) FXMLLoader.load(getClass().getResource("FoodAdvancedTableView_Screen.fxml"));
-        Scene scene = new Scene(nextScene);
-        Node node = (Node)e.getSource();
-        Stage sStage =  (Stage) node.getScene().getWindow();
-        sStage.setScene(scene);
-        sStage.show();*/
 
-    }
 
 
 
@@ -226,7 +211,7 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
 
 
     @FXML
-  private  void BarcodeCol_OnEditCommit(Event e)
+  private void BarcodeCol_OnEditCommit(Event e)
     {
         TableColumn.CellEditEvent<StockBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<StockBeans,String>) e;
@@ -368,6 +353,18 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
         NameTextfeld.clear();
         isFoodBox.setValue("Lebensmittel");
     }
+    @FXML
+    private void handleBackButtonClick(ActionEvent event)throws Exception
+    {
+        if(CurrentUser.isAdmin())
+        {
+            CFObject.switchScene(event,"Admin_Menu.fxml");
+        }
+        else
+        {
+            CFObject.switchScene(event,"Employee_Menu.fxml");
+        }
+    }
 
 ///////////// Sortieren der Namen
 
@@ -422,7 +419,7 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
    {
        Boolean validInput = true;
 
-       //Check BArcode for empty
+       //Check Barcode for empty
        if(BarcodeTextfield == null || BarcodeTextfield.getText().trim().isEmpty())
        {
            validInput = false;

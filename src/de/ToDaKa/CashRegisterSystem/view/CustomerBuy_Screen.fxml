@@ -43,8 +43,9 @@
             <TextField fx:id="amountField" layoutX="14.0" layoutY="61.0" prefHeight="25.0" prefWidth="149.0" promptText="Anzahl" text="1" />
             <Button fx:id="addButton" layoutX="174.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
              <Button fx:id="ClearButton" layoutX="268.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Abbrechen" />
-            <Button fx:id="deleteButton" layoutX="683.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Entfernen" />
-            <Button fx:id="CheckoutButton" layoutX="684.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleCheckoutClick" text="Checkout" />
+            <Button fx:id="deleteButton" layoutX="490.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Entfernen" />
+            <Button fx:id="CheckoutButton" layoutX="491.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleCheckoutClick" text="Checkout" />
+            <Button fx:id="BackButton" layoutX="693.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
          </children></AnchorPane>
   </items>
 </SplitPane>
