@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<SplitPane dividerPositions="0.9046822742474916" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerSellingsTableViewScreen">
+    <items>
+    <AnchorPane>
+         <children>
+            <HBox minWidth="-Infinity" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <MenuBar fx:id="fileMenu" prefWidth="1000.0" HBox.hgrow="ALWAYS">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </HBox>
+            <TableView fx:id="BonTable" layoutX="1.0" layoutY="24.0" prefHeight="422.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+              <columns>
+                  <TableColumn fx:id="BonCol" editable="true" minWidth="200.0" prefWidth="-1.0" text="Bon Nr" />
+                <TableColumn fx:id="DateCol" minWidth="200.0" prefWidth="-1.0" text="Datum" />
+                <TableColumn fx:id="PriceCol" minWidth="200.0" prefWidth="-1.0" text="Preis" />
+                  <TableColumn fx:id="CustomerCol" minWidth="200.0" onEditCommit="#CustomerCol_OnEditCommit" prefWidth="-1.0" text="Kunde" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0">
+         <children>
+            <HBox />
+            <TextField fx:id="filterInput" layoutX="524.0" layoutY="20.0" promptText="Suchen nach Kundenname..." />
+            <Button fx:id="BackButton" layoutX="693.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
+            <Button fx:id="DeleteButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Löschen" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
