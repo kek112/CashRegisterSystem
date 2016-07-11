@@ -14,9 +14,9 @@
             <Button fx:id="BuyButton" layoutX="94.0" layoutY="83.0" mnemonicParsing="false" onAction="#handleBuyButtonClick" prefHeight="150.0" prefWidth="150.0" text="Kassieren" />
             <Button fx:id="CustomerButton" layoutX="94.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleCustomerButtonClick" prefHeight="150.0" prefWidth="150.0" text="Kunden verwalten" />
             <Button fx:id="LogoutButton" layoutX="653.0" layoutY="485.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="50.0" prefWidth="100.0" text="Logout" />
-            <ImageView fitHeight="150.0" fitWidth="300.0" layoutX="431.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="125.0" fitWidth="250.0" layoutX="454.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Desktop/JavaFX%20Zeugs/logo1.jpeg" />
+                  <Image url="@ToDaKa-Logo.png" />
                </image>
             </ImageView>
          </children>
