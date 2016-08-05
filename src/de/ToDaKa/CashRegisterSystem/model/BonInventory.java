@@ -9,9 +9,9 @@ public class BonInventory {
     private int m_BonInventoryID;
     private int m_Amount;
     private float m_Price;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
     private Inventory m_Inventory;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
     private Bon m_Bon;
 
     public BonInventory() {

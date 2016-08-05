@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Entity
 public class Bon extends AbstractDatabaseEntity {
     private static final long serialVersionUID = -1012218123429933983L;
-    @OneToMany(mappedBy = "m_Bon")
+    @OneToMany(cascade={CascadeType.PERSIST},mappedBy = "m_Bon")
     private List<BonInventory> m_BonInventory=new ArrayList<BonInventory>();
     @ManyToOne(fetch = FetchType.EAGER)
     private CashRegister m_CashRegister;

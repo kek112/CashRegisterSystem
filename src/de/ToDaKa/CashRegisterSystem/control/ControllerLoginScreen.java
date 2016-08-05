@@ -2,6 +2,7 @@ package de.ToDaKa.CashRegisterSystem.control;
 
 
 import de.ToDaKa.CashRegisterSystem.CurrentUser;
+import de.ToDaKa.CashRegisterSystem.MD5;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,8 +60,14 @@ public class ControllerLoginScreen
 
     boolean checkuser(String username,String password)
     {
+        String MD5Pass;
+        MD5Pass=MD5.getMD5(password);
+
+
+
         if(username.isEmpty())
         {
+
             return false;
         }
         else

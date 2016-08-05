@@ -1,6 +1,7 @@
 package de.ToDaKa.CashRegisterSystem;
 
 import de.ToDaKa.CashRegisterSystem.model.*;
+import de.ToDaKa.CashRegisterSystem.model.execptions.BonExistsException;
 import de.ToDaKa.CashRegisterSystem.storage.*;
 import de.ToDaKa.CashRegisterSystem.storage.core.*;
 import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
@@ -13,17 +14,29 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
+
 public class Main extends Application {
 
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws BonExistsException {
 
         //Create Test CRS
         CashRegisterSystem CRS;
         DataProvider dataProvider =new DataProvider();
         CRS=dataProvider.creatTestCRS();
+
+        Inventory currentArticle;
+        IGenericDao<Inventory> InventoryDao =DataController.getInstance().getInventoryDao();
+        currentArticle = CRS.findInventory(Long.parseLong("4012362044208"));
+
+        Bon currentBon;
+        currentBon=CRS.addBon(new Bon());
+
+        BonInventory currentBonInventory =new BonInventory(2, currentBon, currentArticle);
+
+        currentArticle.addBonInventory(currentBonInventory);
+        currentArticle.addBonInventory(currentBonInventory);
 
         IStorageController sc = new JpaStorageController();
 

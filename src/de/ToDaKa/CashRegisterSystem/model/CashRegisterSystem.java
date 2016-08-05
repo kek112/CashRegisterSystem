@@ -110,6 +110,21 @@ public class CashRegisterSystem implements Serializable {
             return null;
         }
     }
+
+    public Inventory findInventory(long _Barcode)
+    {
+        Inventory _Inventory;
+            //Search with Barcode
+            for(Inventory _CurrentInventory: InventoryList)
+            {
+                if(_CurrentInventory.compareTo(_Barcode)==1)
+                {
+                    return _CurrentInventory;
+                }
+            }
+            return null;
+
+    }
     public Bon findBon(Bon _Bon)
     {
         int index = this.BonList.indexOf(_Bon);

@@ -39,6 +39,8 @@ public class  DataProvider {
             CRS.addInventory(new Inventory(Long.parseLong("4104640015014"),"Förstina Sprudel Naturell",45,0.39f, true));
             CRS.addInventory(new Inventory(Long.parseLong("4250542847472"),"Collegeblock 80 Blatt",23,0.99f, false));
 
+
+
         }
         catch (InventoryExistsException e)
         {

@@ -14,7 +14,7 @@ public class Inventory extends AbstractDatabaseEntity implements Comparable<Inve
     private int m_Amount;
     private float m_Price;
     private boolean m_IsFood;
-    @OneToMany(mappedBy = "m_Inventory")
+    @OneToMany(cascade={CascadeType.PERSIST},mappedBy = "m_Inventory")
     private List<BonInventory> m_BonInventory = new ArrayList<BonInventory>();
 
     public Inventory() {
@@ -54,6 +54,18 @@ public class Inventory extends AbstractDatabaseEntity implements Comparable<Inve
     {
 
         if( this.getBarcode()==_Inventory.getBarcode() )
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    public int compareTo(long _Barcode)
+    {
+
+        if( this.getBarcode()==_Barcode )
         {
             return 1;
         }
