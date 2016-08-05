@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 public class CashRegister extends AbstractDatabaseEntity implements Serializable {
-    @OneToMany(mappedBy = "m_CashRegister")
+    @OneToMany(cascade={CascadeType.PERSIST},mappedBy = "m_CashRegister")
     private List<Bon> m_Bon=new ArrayList<Bon>();
 
     public CashRegister() {

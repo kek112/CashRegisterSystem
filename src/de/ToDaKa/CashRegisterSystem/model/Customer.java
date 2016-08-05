@@ -14,7 +14,7 @@ public class Customer extends AbstractDatabaseEntity implements Comparable<Custo
     private boolean isMale;
     private long Telephone;
     private Date Birthday;
-    @OneToMany(mappedBy = "m_Customer")
+    @OneToMany(cascade={CascadeType.PERSIST}, mappedBy = "m_Customer")
     private List<Bon> m_Bon;
 
     public Customer() {

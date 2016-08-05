@@ -13,7 +13,7 @@ public class Cashier extends AbstractDatabaseEntity implements Comparable<Custom
     private String m_LastName;
     boolean IsAdmin;
     String Md5Password;
-    @OneToMany(mappedBy = "m_Cashier")
+    @OneToMany(cascade={CascadeType.PERSIST},mappedBy = "m_Cashier")
     private List<Bon> m_Bon=new ArrayList<Bon>();
 
 
