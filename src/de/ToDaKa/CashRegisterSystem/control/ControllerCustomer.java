@@ -323,7 +323,7 @@ public class ControllerCustomer implements Initializable {
             System.out.println("Löschen Button gedrückt");
             Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "OK", ButtonType.OK, ButtonType.CANCEL);
             Window owner = ((Node) event.getTarget()).getScene().getWindow();
-            deleteAlert.setContentText("Sind Sie sicher das diese Aktion vortgesetzt werden soll?\n\nAKTION KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN");
+            deleteAlert.setContentText("Sind Sie sicher das diese Aktion fortgesetzt werden soll?\n\nAKTION KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN");
             deleteAlert.initModality(Modality.APPLICATION_MODAL);
             deleteAlert.initOwner(owner);
             deleteAlert.showAndWait();

@@ -57,7 +57,6 @@ public class ControllerAdminMenu
             CFObject.switchScene(event,"Customer_Screen.fxml");
 
 
-
     }
 
 

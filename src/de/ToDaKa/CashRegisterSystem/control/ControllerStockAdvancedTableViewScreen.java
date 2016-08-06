@@ -95,6 +95,15 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
             }
         });
 
+        StockBeans stockBeans = new StockBeans();
+        stockBeans.setName   (   "Oebis");
+        stockBeans.setBarcode(   "123");
+        stockBeans.setAmount (   5 );
+        stockBeans.setPrice  ( 1.99);
+        stockBeans.setIsFood ("Nein");
+
+        observableStockBeansList.add(stockBeans);
+
         // init edit fields
         Stocktable.setEditable(true);
 

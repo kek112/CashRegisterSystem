@@ -14,15 +14,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-
 public class Main extends Application {
 
+    public static CashRegisterSystem CRS;
 
 
     public static void main(String[] args) throws BonExistsException {
 
         //Create Test CRS
-        CashRegisterSystem CRS;
         DataProvider dataProvider =new DataProvider();
         CRS=dataProvider.creatTestCRS();
 

@@ -150,6 +150,19 @@ public class CashRegisterSystem implements Serializable {
             return null;
         }
     }
+    public Cashier findCashier(long _ID)
+    {
+        //Search with ID
+        for(Cashier _CurrentCashier: CashierList)
+        {
+            if(_CurrentCashier.getId().compareTo(_ID)==1)
+            {
+                return _CurrentCashier;
+            }
+        }
+        return null;
+    }
+
     public CashRegister findCashRegister(CashRegister _CashRegister)
     {
         int index = this.CashierList.indexOf(_CashRegister);
