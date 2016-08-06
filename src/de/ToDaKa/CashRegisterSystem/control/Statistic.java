@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Statistic
 {
-    public double statistic (CashRegisterSystem CRS, Date ToDate)
+    public static float statistic (CashRegisterSystem CRS, Date ToDate)
     {
         float sales = 0;
 
