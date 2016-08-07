@@ -184,11 +184,12 @@ public class ControllerCustomerBuyScreen implements Initializable {
                 if(currentInventory!=null)
                 {
                     int Amount=Integer.parseInt(amountField.getText());
-                    if(currentInventory.getAmount()>=Amount)
+                                        if(currentInventory.getAmount()>=Amount)
                     {
 
                         IStorageController sc = new JpaStorageController();
 
+                        BonInventory currentBonInventory=null;
                         if(currentBon==null)
                         {
                             currentBon=new Bon();
@@ -197,12 +198,32 @@ public class ControllerCustomerBuyScreen implements Initializable {
                             //TODO
                             currentBon.setCustomer(Main.CRS.findCustomer(0));
                         }
-                        currentInventory.addBonInventory(new BonInventory(Amount,currentBon, currentInventory));
-                        currentBon.addBonInventory(currentInventory.getBonInventory().get(currentInventory.getBonInventory().size()-1));
+                        else
+                        {
+                            for(int i=0;currentBon.getBonInventory().size()>i;i++)
+                            {
+                                if(currentBon.getBonInventory().get(i).getInventory().getBarcode()==Long.parseLong(barcodeField.getText()))
+                                {
+                                    currentBon.getBonInventory().size();
+                                    currentBonInventory=currentBon.getBonInventorys().get(i);
+                                }
+                            }
+                        }
+                        if(currentBonInventory==null)
+                        {
+                            currentBonInventory=new BonInventory(Amount,currentBon, currentInventory);
+                            currentBon.addBonInventory(currentBonInventory);
+                            currentInventory.addBonInventory(currentBonInventory);
+                        }
+                        else
+                        {
+                            currentBonInventory.setAmount(Amount+currentBonInventory.getAmount());
+                        }
                         currentInventory.setAmount(currentInventory.getAmount()-Amount);
 
                         observableCustomerBuyBeansList.removeAll(observableCustomerBuyBeansList);
-
+                        barcodeField.clear();
+                        amountField.setText("1");
                         update();
                         }
                         else
@@ -304,8 +325,17 @@ public class ControllerCustomerBuyScreen implements Initializable {
             deleteAlert.initOwner(owner);
             deleteAlert.showAndWait();
             if(deleteAlert.getResult() == ButtonType.OK) {
+                int amountOnBon=StockTable.getSelectionModel().getSelectedItem().getAmount();
+                long barcode=StockTable.getSelectionModel().getSelectedItem().getBarcode();
+                int amountOnInventar=Main.CRS.findInventory(barcode).getAmount();
+
+                Main.CRS.findInventory(barcode).setAmount(amountOnInventar+amountOnBon);
+
+
+
                 observableCustomerBuyBeansList.removeAll(StockTable.getSelectionModel().getSelectedItems());
                 StockTable.getSelectionModel().clearSelection();
+
             }
             else {
                 deleteAlert.close();

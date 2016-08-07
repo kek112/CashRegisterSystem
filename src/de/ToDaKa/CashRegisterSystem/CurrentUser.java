@@ -12,6 +12,7 @@ public class CurrentUser {
 
     public static void setCurrentUserID(long currentUserID) {
         CurrentUserID = currentUserID;
+
     }
     public static void reset()
     {
@@ -19,6 +20,6 @@ public class CurrentUser {
     }
     public static boolean isAdmin()
     {
-        return true;
+        return Main.CRS.findCashier(CurrentUserID).isAdmin();
     }
 }
