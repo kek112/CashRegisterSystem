@@ -5,6 +5,7 @@ import de.ToDaKa.CashRegisterSystem.storage.core.AbstractDatabaseEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,25 @@ public class Cashier extends AbstractDatabaseEntity implements Comparable<Custom
     private String m_LastName;
     boolean IsAdmin;
     String Md5Password;
+
+    public long getTelephone() {
+        return m_Telephone;
+    }
+
+    public void setTelephone(long Telephone) {
+        this.m_Telephone = Telephone;
+    }
+
+    public Date getBirtdate() {
+        return m_Birtdate;
+    }
+
+    public void setBirtdate(Date _Birtdate) {
+        this.m_Birtdate = _Birtdate;
+    }
+
+    private long m_Telephone;
+    private Date m_Birtdate;
     @OneToMany(cascade={CascadeType.PERSIST},mappedBy = "m_Cashier")
     private List<Bon> m_Bon=new ArrayList<Bon>();
 

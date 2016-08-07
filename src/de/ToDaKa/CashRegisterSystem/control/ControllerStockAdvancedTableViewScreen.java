@@ -259,7 +259,6 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     @FXML
     private void NameCol_OnEditCommit(Event e)
     {
-        System.out.println("Wurde editzier");
         TableColumn.CellEditEvent<StockBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<StockBeans,String>) e;
 
@@ -289,34 +288,90 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     {
         TableColumn.CellEditEvent<StockBeans,Number> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<StockBeans,Number>) e;
-        StockBeans stockBeans = cellEditEvent.getRowValue();
-        stockBeans.setAmount(cellEditEvent.getNewValue().intValue());
 
         StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, Number>) e).getTablePosition().getRow());
+        Main.CRS.findInventory(Long.parseLong(stockrow.getBarcode())).setAmount((int)cellEditEvent.getNewValue());
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableStockBeansList.removeAll(observableStockBeansList);
+        update();
+
 
     }
+
 
     @FXML
     private void PriceCol_OnEditCommit(Event e)
     {
         TableColumn.CellEditEvent<StockBeans,Number> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<StockBeans,Number>) e;
-        StockBeans stockBeans = cellEditEvent.getRowValue();
-        stockBeans.setPrice(cellEditEvent.getNewValue().doubleValue());
 
         StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, Number>) e).getTablePosition().getRow());
-    }
+        Main.CRS.findInventory(Long.parseLong(stockrow.getBarcode())).setPrice((float)cellEditEvent.getNewValue());
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableStockBeansList.removeAll(observableStockBeansList);
+        update(); }
 
     @FXML
     private void isFoodCol_OnEditCommit(Event e)
     {
         TableColumn.CellEditEvent<StockBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<StockBeans,String>) e;
-        StockBeans stockBeans = cellEditEvent.getRowValue();
-        stockBeans.setIsFood((String) cellEditEvent.getNewValue());
 
         StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, String>) e).getTablePosition().getRow());
+
+
+        String isFood=(String) cellEditEvent.getNewValue();
+
+        if(isFood.compareTo("Ja")==0)
+        {
+            Main.CRS.findInventory(Long.parseLong(stockrow.getBarcode())).setIsFood(true);
+
+        }
+        else if (isFood.compareTo("Nein")==0)
+        {
+            Main.CRS.findInventory(Long.parseLong(stockrow.getBarcode())).setIsFood(false);
+
+        }
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableStockBeansList.removeAll(observableStockBeansList);
+        update();
     }
+
+
+
+
+
+
     //////////////////////////////////////////////////
     //HANDLE Buttons
     //////////////////////////////////////////////////

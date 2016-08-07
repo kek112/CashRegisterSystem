@@ -31,6 +31,10 @@ import javafx.stage.Window;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import de.ToDaKa.CashRegisterSystem.model.Beans.*;
@@ -218,51 +222,103 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     @FXML
     void NameCol_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+        TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
-        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
-        employeeBeans.setName(cellEditEvent.getNewValue());
 
         EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
-        System.out.println(employeerow.getEmployeeNr());
+        Main.CRS.findCashier(employeerow.getEmployeeNr()).setLastName(cellEditEvent.getNewValue());
+
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableEmployeeBeansList.removeAll(observableEmployeeBeansList);
+        update();
+
     }
     @FXML
     void FirstName_OnEditCommit(Event e)
     {
-        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+        TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
-        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
-        employeeBeans.setFirstName(cellEditEvent.getNewValue());
 
         EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
-        System.out.println(employeerow.getEmployeeNr());
+        Main.CRS.findCashier(employeerow.getEmployeeNr()).setFirstName(cellEditEvent.getNewValue());
+
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableEmployeeBeansList.removeAll(observableEmployeeBeansList);
+        update();
     }
     @FXML
-    void Telephone_OnEditCommit(Event e)
-    {
-        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+    void Telephone_OnEditCommit(Event e){
+        TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
-        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
-        employeeBeans.setPhoneNr(cellEditEvent.getNewValue());
 
         EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
 
-        System.out.println(employeerow.getEmployeeNr());
+        Main.CRS.findCashier(employeerow.getEmployeeNr()).setTelephone(Long.parseLong(cellEditEvent.getNewValue()));
+
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableEmployeeBeansList.removeAll(observableEmployeeBeansList);
+        update();
     }
 
     @FXML
-    void Birthday_OnEditCommit(Event e)
-    {
-        TableColumn.CellEditEvent<EmployeeBeans, String> cellEditEvent;
+    void Birthday_OnEditCommit(Event e) {
+
+        TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
-        EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
-        employeeBeans.setBirthday(cellEditEvent.getNewValue());
 
         EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
+        try {
+            Main.CRS.findCashier(employeerow.getEmployeeNr()).setBirtdate(new SimpleDateFormat("dd.MM.yyyy").parse(cellEditEvent.getNewValue()));
+        }
+        catch (ParseException ParsEx)
+        {
+            ParsEx.printStackTrace();
+        }
+        IStorageController sc = new JpaStorageController();
 
-        System.out.println(employeerow.getEmployeeNr());
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableEmployeeBeansList.removeAll(observableEmployeeBeansList);
+        update();
     }
     @FXML
     void Rights_OnEditCommit(Event e)
