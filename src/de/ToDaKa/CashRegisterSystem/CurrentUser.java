@@ -4,13 +4,13 @@ package de.ToDaKa.CashRegisterSystem;
  * Created by Daniel on 07.07.2016.
  */
 public class CurrentUser {
-    private static int CurrentUserID;
+    private static long CurrentUserID;
 
-    public static int getCurrentUserID() {
+    public static long getCurrentUserID() {
         return CurrentUserID;
     }
 
-    public static void setCurrentUserID(int currentUserID) {
+    public static void setCurrentUserID(long currentUserID) {
         CurrentUserID = currentUserID;
     }
     public static void reset()

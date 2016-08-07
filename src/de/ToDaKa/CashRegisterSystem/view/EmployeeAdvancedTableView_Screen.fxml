@@ -46,15 +46,15 @@
          <children>
             <HBox />
             <TextField fx:id="NameField" layoutX="14.0" layoutY="14.0" promptText="Name..." />
-            <TextField fx:id="BirthdayField" layoutX="201.0" layoutY="56.0" promptText="Geburtstag..." />
-            <TextField fx:id="FirstNameField" layoutX="14.0" layoutY="56.0" promptText="Vorname..." />
-            <TextField fx:id="TelephoneField" layoutX="14.0" layoutY="96.0" promptText="Telefon..." />
+             <TextField fx:id="FirstNameField" layoutX="14.0" layoutY="56.0" promptText="Vorname..." />
+             <TextField fx:id="BirthdayField" layoutX="201.0" layoutY="56.0" promptText="Geburtstag..." />
+             <TextField fx:id="TelephoneField" layoutX="14.0" layoutY="96.0" promptText="Telefon..." />
             <ComboBox fx:id="RightsBox" layoutX="201.0" layoutY="96.0" prefWidth="150.0" promptText="Berechtigung" />
-            <Button fx:id="addBtn" layoutX="520.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
+             <Button layoutX="263.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Zurücksetzen" />
+             <Button fx:id="addBtn" layoutX="520.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
             <Button fx:id="deleteBtn" layoutX="612.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Löschen" />
-            <TextField fx:id="filterInput" layoutX="524.0" layoutY="84.0" promptText="Filter Table..." />
-            <Button layoutX="263.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Zurücksetzen" />
-            <Button fx:id="BackButton" layoutX="693.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
-         </children></AnchorPane>
+             <Button fx:id="BackButton" layoutX="693.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
+             <TextField fx:id="filterInput" layoutX="524.0" layoutY="84.0" promptText="Filter Table..." />
+                </children></AnchorPane>
   </items>
 </SplitPane>

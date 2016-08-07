@@ -2,7 +2,16 @@ package de.ToDaKa.CashRegisterSystem.control;
 
 
 import de.ToDaKa.CashRegisterSystem.CurrentUser;
+import de.ToDaKa.CashRegisterSystem.Main;
 import de.ToDaKa.CashRegisterSystem.model.Beans.CustomerBuyBeans;
+import de.ToDaKa.CashRegisterSystem.model.Bon;
+import de.ToDaKa.CashRegisterSystem.model.BonInventory;
+import de.ToDaKa.CashRegisterSystem.model.Customer;
+import de.ToDaKa.CashRegisterSystem.model.Inventory;
+import de.ToDaKa.CashRegisterSystem.model.execptions.BonExistsException;
+import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,7 +40,7 @@ import java.util.ResourceBundle;
 
 public class ControllerCustomerBuyScreen implements Initializable {
 
-
+    Bon currentBon=null;
     ControllerFunctions CFObject=new ControllerFunctions();
     @FXML
     private ResourceBundle resources;
@@ -137,23 +146,71 @@ public class ControllerCustomerBuyScreen implements Initializable {
             }
         });
     }//end initialize
+    private void update()
+    {
+        if(currentBon!=null)
+        {
+            for(int i=0;i<currentBon.getBonInventorys().size();i++)
+            {
+                CustomerBuyBeans CustomerBuyBeans = new CustomerBuyBeans();
+                CustomerBuyBeans.setBarcode(currentBon.getBonInventorys().get(i).getInventory().getBarcode());
+                CustomerBuyBeans.setAmount(currentBon.getBonInventory().get(i).getAmount());
+                CustomerBuyBeans.setPrice(currentBon.getBonInventory().get(i).getPrice());
+                CustomerBuyBeans.setArticleName(currentBon.getBonInventory().get(i).getInventory().getName());
+                if(currentBon.getBonInventory().get(i).getInventory().IsFood())
+                {
+                    CustomerBuyBeans.setIsFood("Ja");
 
+                }
+                else
+                {
+                    CustomerBuyBeans.setIsFood("Nein");
+                }
+                observableCustomerBuyBeansList.add(CustomerBuyBeans);
+
+            }
+        }
+    }
     /*
     ----------------------------------------------Control handlers---------------------------------------------
      */
-    public void handleAddButtonClick(ActionEvent event) {
+    public void handleAddButtonClick(ActionEvent event) throws BonExistsException {
         /*
         Get input from user and add to Table
          */
-            if (isValidInput(event)) {
-                    CustomerBuyBeans CustomerBuyBeans = new CustomerBuyBeans();
-                    CustomerBuyBeans.setBarcode(Long.parseLong(barcodeField.getText()));
-                    CustomerBuyBeans.setAmount(Integer.parseInt(amountField.getText()));
-                    observableCustomerBuyBeansList.add(CustomerBuyBeans);
-                    System.out.println(CustomerBuyBeans.toString());
-                    barcodeField.clear();
-                    amountField.setText("1");
-                }
+            if (isValidInput(event))
+            {
+                Inventory currentInventory=Main.CRS.findInventory(Long.parseLong(barcodeField.getText()));
+                if(currentInventory!=null)
+                {
+                    int Amount=Integer.parseInt(amountField.getText());
+                    if(currentInventory.getAmount()>=Amount)
+                    {
+
+                        IStorageController sc = new JpaStorageController();
+
+                        if(currentBon==null)
+                        {
+                            currentBon=new Bon();
+                            Main.CRS.addBon(currentBon);
+                            currentBon.setCashier(Main.CRS.findCashier(CurrentUser.getCurrentUserID()));
+                            //TODO
+                            currentBon.setCustomer(Main.CRS.findCustomer(0));
+                        }
+                        currentInventory.addBonInventory(new BonInventory(Amount,currentBon, currentInventory));
+                        currentBon.addBonInventory(currentInventory.getBonInventory().get(currentInventory.getBonInventory().size()-1));
+                        currentInventory.setAmount(currentInventory.getAmount()-Amount);
+
+                        observableCustomerBuyBeansList.removeAll(observableCustomerBuyBeansList);
+
+                        update();
+                        }
+                        else
+                    {
+                        System.out.println("Nicht genug Artikel im Inventar");
+                    }
+                    }
+            }
 
         }
 
@@ -261,6 +318,7 @@ public class ControllerCustomerBuyScreen implements Initializable {
     }
 
     public void handleCheckoutClick(ActionEvent event) {
+        currentBon=null;
         Stage secondaryStage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Kunden Tabelle speichern");
@@ -291,6 +349,7 @@ public class ControllerCustomerBuyScreen implements Initializable {
 
     @FXML
     public void handleBackButtonClick(ActionEvent event)throws Exception {
+        currentBon=null;
         if(CurrentUser.isAdmin())
         {
             CFObject.switchScene(event,"Admin_Menu.fxml");

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static CashRegisterSystem CRS;
+    public Cashier currentCashier;
 
 
     public static void main(String[] args) throws BonExistsException {

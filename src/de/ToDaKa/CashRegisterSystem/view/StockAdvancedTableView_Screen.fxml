@@ -47,11 +47,12 @@
             <TextField fx:id="NameTextfeld" layoutX="14.0" layoutY="96.0" promptText="Name..." />
             <TextField fx:id="AmountTextfield" layoutX="201.0" layoutY="98.0" promptText="Anzahl..." />
             <ComboBox fx:id="isFoodBox" layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Lebensmittel" />
-            <Button fx:id="addBtn" layoutX="520.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
+             <Button fx:id="ClearButton" layoutX="263.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Zurücksetzen" />
+             <Button fx:id="addBtn" layoutX="520.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
             <Button fx:id="deleteBtn" layoutX="612.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Löschen" />
-            <TextField fx:id="filterInput" layoutX="524.0" layoutY="84.0" promptText="Suchen nach Name" />
-            <Button fx:id="ClearButton" layoutX="263.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Zurücksetzen" />
             <Button fx:id="BackButton" layoutX="693.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
+             <TextField fx:id="filterInput" layoutX="524.0" layoutY="84.0" promptText="Suchen nach Name" />
+
          </children></AnchorPane>
   </items>
 </SplitPane>

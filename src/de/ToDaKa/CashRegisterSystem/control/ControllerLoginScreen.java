@@ -43,7 +43,7 @@ public class ControllerLoginScreen
     @FXML
     private void handleButtonEventLogin(ActionEvent event)throws Exception
     {
-            if (checkuser(Long.parseLong(TextfieldNameLoginScreen.getText()),TextfieldPasswordLoginScreen.getText()))
+            if (checkuser(Integer.parseInt(TextfieldNameLoginScreen.getText()),TextfieldPasswordLoginScreen.getText()))
             {
                 CurrentUser.setCurrentUserID(Integer.parseInt(TextfieldNameLoginScreen.getText()));
                 if(CurrentUser.isAdmin())
@@ -66,12 +66,12 @@ public class ControllerLoginScreen
     {
         String MD5Pass;
         MD5Pass=MD5.getMD5(password);
-
         Cashier currentCashier=Main.CRS.findCashier(UserID);
         if(currentCashier!=null)
         {
            if(currentCashier.getMd5Password().equals(MD5Pass)==true)
             {
+                CurrentUser.setCurrentUserID(currentCashier.getId());
                 return true;
             }
             else

@@ -12,11 +12,11 @@
          <children>
             <Button fx:id="BuyButton" layoutX="94.0" layoutY="83.0" mnemonicParsing="false" onAction="#handleBuyButtonClick" prefHeight="150.0" prefWidth="150.0" text="Kassieren" />
             <Button fx:id="CustomerButton" layoutX="94.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleCustomerButtonClick" prefHeight="150.0" prefWidth="150.0" text="Kunden verwalten" />
-            <Button fx:id="LogoutButton" layoutX="653.0" layoutY="485.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="50.0" prefWidth="100.0" text="Logout" />
             <Button fx:id="InventarButton" layoutX="94.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleInventarButtonClick" prefHeight="50.0" prefWidth="100.0" text="Inventar" />
             <Button fx:id="CashierButton" layoutX="214.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleCashierButtonClick" prefHeight="50.0" prefWidth="100.0" text="Kassierer" />
             <Button fx:id="SellingsButton" layoutX="334.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleSellingsButtonClick" prefHeight="50.0" prefWidth="100.0" text="Einkäufe" />
             <Button fx:id="StatistikButton" layoutX="454.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleStatistikButton" prefHeight="50.0" prefWidth="100.0" text="Statistik" />
+            <Button fx:id="LogoutButton" layoutX="653.0" layoutY="485.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="50.0" prefWidth="100.0" text="Logout" />
             <ImageView fitHeight="125.0" fitWidth="250.0" layoutX="454.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@ToDaKa-Logo.png" />

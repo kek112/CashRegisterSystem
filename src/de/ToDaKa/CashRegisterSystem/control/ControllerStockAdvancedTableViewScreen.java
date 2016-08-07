@@ -3,6 +3,12 @@ package de.ToDaKa.CashRegisterSystem.control;
 
 
 import de.ToDaKa.CashRegisterSystem.CurrentUser;
+import de.ToDaKa.CashRegisterSystem.Main;
+import de.ToDaKa.CashRegisterSystem.model.Inventory;
+import de.ToDaKa.CashRegisterSystem.model.execptions.InventoryExistsException;
+import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -94,15 +100,9 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
                 filterNameList((String) oldValue,(String) newValue);
             }
         });
+        update();
 
-        StockBeans stockBeans = new StockBeans();
-        stockBeans.setName   (   "Oebis");
-        stockBeans.setBarcode(   "123");
-        stockBeans.setAmount (   5 );
-        stockBeans.setPrice  ( 1.99);
-        stockBeans.setIsFood ("Nein");
 
-        observableStockBeansList.add(stockBeans);
 
         // init edit fields
         Stocktable.setEditable(true);
@@ -173,6 +173,32 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
                 }
             }
         });
+    }
+
+    private void update()
+    {
+        for(int i=0;i<Main.CRS.getInventoryList().size();i++)
+        {
+
+            Inventory currentArticle;
+            currentArticle=Main.CRS.getInventoryList().get(i);
+
+            StockBeans stockBeans = new StockBeans();
+            stockBeans.setName   (   currentArticle.getName());
+            stockBeans.setBarcode(   Long.toString(currentArticle.getBarcode()));
+            stockBeans.setAmount (   currentArticle.getAmount() );
+            stockBeans.setPrice  ( currentArticle.getPrice());
+            if(currentArticle.IsFood()==false)
+            {
+                stockBeans.setIsFood ("Nein");
+            }
+            else
+            {
+                stockBeans.setIsFood ("Ja");
+            }
+            observableStockBeansList.add(stockBeans);
+
+        }
     }
 
 
@@ -280,49 +306,47 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     //HANDLE Buttons
     //////////////////////////////////////////////////
     @FXML
-    private void handleAddButtonClick(ActionEvent event)
-    {
+    private void handleAddButtonClick(ActionEvent event) throws InventoryExistsException {
         if(isValidInput(event))
         {
-            if(isFoodBox.getValue().equals("Ja"))
+            if(isFoodBox.getValue().equals("Ja")||isFoodBox.getValue().equals("Nein"))
             {
+                if(Main.CRS.findInventory(Long.parseLong(BarcodeTextfield.getText()))==null)
+                {
 
-                StockBeans stockBeans = new StockBeans();
-                stockBeans.setName   (   NameTextfeld.getText());
-                stockBeans.setBarcode(   BarcodeTextfield.getText());
-                stockBeans.setAmount (   Integer.parseInt(AmountTextfield.getText()) );
-                stockBeans.setPrice  (   Float.parseFloat(PriceField.getText())      );
-                stockBeans.setIsFood (   isFoodBox.getValue());
+                    Inventory newInventory=new Inventory();
+                    newInventory.setBarcode(Long.parseLong(BarcodeTextfield.getText()));
+                    newInventory.setName(NameTextfeld.getText());
+                    newInventory.setAmount(Integer.parseInt(AmountTextfield.getText()));
+                    newInventory.setPrice(Float.parseFloat(PriceField.getText()));
+                    if(isFoodBox.getValue().equals("Ja"))
+                    {
+                        newInventory.setIsFood(true);
+                    }
+                    else
+                    {
+                        newInventory.setIsFood(false);
+                    }
+                    Main.CRS.addInventory(newInventory);
+                    IStorageController sc = new JpaStorageController();
 
-                observableStockBeansList.add(stockBeans);
-                System.out.println(stockBeans.printString());
+                    try
+                    {
+                        sc.saveCashRegisterSystem(Main.CRS);
+                    }
+                    catch (StorageException e)
+                    {
+                        e.printStackTrace();
+                    }
 
-
-                BarcodeTextfield.clear();
-                AmountTextfield.clear();
-                PriceField.clear();
-                NameTextfeld.clear();
-                isFoodBox.setValue("Lebensmittel");
-
-
+                    BarcodeTextfield.clear();
+                    AmountTextfield.clear();
+                    PriceField.clear();
+                    NameTextfeld.clear();
+                    isFoodBox.setValue("Lebensmittel");
+                    observableStockBeansList.removeAll(observableStockBeansList);
+                    update();
             }
-            if(isFoodBox.getValue().equals("Nein"))
-            {
-                StockBeans stockBeans = new StockBeans();
-                stockBeans.setName   (   NameTextfeld.getText());
-                stockBeans.setBarcode(   BarcodeTextfield.getText());
-                stockBeans.setAmount (   Integer.parseInt(AmountTextfield.getText()) );
-                stockBeans.setPrice  (   Float.parseFloat(PriceField.getText())      );
-                stockBeans.setIsFood (   isFoodBox.getValue());
-
-                observableStockBeansList.add(stockBeans);
-                System.out.println(stockBeans.printString());
-
-                BarcodeTextfield.clear();
-                AmountTextfield.clear();
-                PriceField.clear();
-                NameTextfeld.clear();
-                isFoodBox.setValue("Lebensmittel");
             }
         }
     }
@@ -332,7 +356,6 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     {
         if(!observableStockBeansList.isEmpty())
         {
-            System.out.println("Löschen gedrückt");
             Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "Bestätigen", ButtonType.OK, ButtonType.CANCEL);
             Window owner = ((Node) event.getTarget()).getScene().getWindow();
             deleteAlert.setContentText("Eintrag wirklich löschen?");
@@ -342,7 +365,22 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
 
             if(deleteAlert.getResult() == ButtonType.OK)
             {
-                observableStockBeansList.removeAll(Stocktable.getSelectionModel().getSelectedItems());
+                Inventory removeArticle=Main.CRS.findInventory(Long.parseLong(Stocktable.getSelectionModel().getSelectedItem().getBarcode()));
+
+                Main.CRS.getInventoryList().remove(removeArticle);
+
+                observableStockBeansList.removeAll(observableStockBeansList);
+                update();
+                IStorageController sc = new JpaStorageController();
+
+                try
+                {
+                    sc.saveCashRegisterSystem(Main.CRS);
+                }
+                catch (StorageException e)
+                {
+                    e.printStackTrace();
+                }
                 Stocktable.getSelectionModel().clearSelection();
             }
             else

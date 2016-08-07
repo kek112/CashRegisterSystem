@@ -1,6 +1,7 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
 
+import de.ToDaKa.CashRegisterSystem.Main;
 import de.ToDaKa.CashRegisterSystem.model.execptions.*;
 
 import java.io.Serializable;
@@ -50,6 +51,19 @@ public class CashRegisterSystem implements Serializable {
             BonList.add(_Bon);
         }
         return _Bon;
+    }
+    public Bon findBon(long _BonID)
+    {
+        Bon currentBon=null;
+        for(int i = 0; i< getBon().size(); i++)
+        {
+            if(getCashierList().get(i).getId().equals(_BonID))
+            {
+                currentBon=getBon().get(i);
+                i=getCashierList().size();
+            }
+        }
+        return currentBon;
     }
 
     public void addCashier(Cashier _Cashier) throws CashierExistsException
@@ -150,17 +164,19 @@ public class CashRegisterSystem implements Serializable {
             return null;
         }
     }
-    public Cashier findCashier(long _ID)
+    public Cashier findCashier(long _CashierID)
     {
-        //Search with ID
-        for(Cashier _CurrentCashier: CashierList)
+        Cashier currentCashier=null;
+        for(int i = 0; i< getCashierList().size(); i++)
         {
-            if(_CurrentCashier.getId().compareTo(_ID)==1)
+            if(getCashierList().get(i).getId().equals(_CashierID))
             {
-                return _CurrentCashier;
+                currentCashier=getCashierList().get(i);
+                i=getCashierList().size();
             }
         }
-        return null;
+        return currentCashier;
+
     }
 
     public CashRegister findCashRegister(CashRegister _CashRegister)
@@ -186,6 +202,19 @@ public class CashRegisterSystem implements Serializable {
         {
             return null;
         }
+    }
+    public Customer findCustomer(long _CustomerID)
+    {
+        Customer currentCustomer=null;
+        for(int i = 0; i< getCustomerList().size(); i++)
+        {
+            if(getCustomerList().get(i).getId().equals(_CustomerID))
+            {
+                currentCustomer=getCustomerList().get(i);
+                i=getCashierList().size();
+            }
+        }
+        return currentCustomer;
     }
     public List<Bon> getBon() {
         return BonList;

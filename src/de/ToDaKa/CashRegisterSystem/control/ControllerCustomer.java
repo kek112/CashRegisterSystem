@@ -2,6 +2,13 @@ package de.ToDaKa.CashRegisterSystem.control;
 
 
 import de.ToDaKa.CashRegisterSystem.CurrentUser;
+import de.ToDaKa.CashRegisterSystem.Main;
+import de.ToDaKa.CashRegisterSystem.model.Customer;
+import de.ToDaKa.CashRegisterSystem.model.Inventory;
+import de.ToDaKa.CashRegisterSystem.model.execptions.CustomerExistsException;
+import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +26,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import de.ToDaKa.CashRegisterSystem.model.Beans.*;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.*;
 import java.net.URL;
@@ -37,7 +45,7 @@ public class ControllerCustomer implements Initializable {
     private URL location;
 
     @FXML // fx:id="CustomerIDCCol"
-    private TableColumn<CustomerBeans, String> CustomerIDCol;
+    private TableColumn<CustomerBeans, Number> CustomerIDCol;
 
 
     @FXML // fx:id="firstNameCol"
@@ -101,6 +109,7 @@ public class ControllerCustomer implements Initializable {
 
             }
         });
+        update();
         //initialize editable attributes
         CustomerTable.setEditable(true);
         CustomerIDCol.setOnEditCommit(e -> CustomerIDCol_OnEditCommit(e));
@@ -112,7 +121,7 @@ public class ControllerCustomer implements Initializable {
 
         CustomerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        CustomerIDCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        CustomerIDCol.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         firstNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         lastNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         TelephoneCol.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -161,46 +170,61 @@ public class ControllerCustomer implements Initializable {
                 }
             }
         });
-    }//end initialize
+    }
+    private void update()
+    {
+        for(int i = 0; i< Main.CRS.getCustomerList().size(); i++)
+        {
+
+            Customer currentCustomer;
+            currentCustomer=Main.CRS.getCustomerList().get(i);
+
+            CustomerBeans customerBeans = new CustomerBeans();
+            customerBeans.setCustomerID(currentCustomer.getId());
+            customerBeans.setFirstName(currentCustomer.getFirstName());
+            customerBeans.setLastName(currentCustomer.getLastName());
+            //customerBeans.setTelephone();
+            //customerBeans.setBirthday();
+            //customerBeans.setGender());
+            observableCustomerBeansList.add(customerBeans);
+        }
+    }
+    //end initialize
 
     /*
     ----------------------------------------------Control handlers---------------------------------------------
      */
-    public void handleAddButtonClick(ActionEvent event) {
+    public void handleAddButtonClick(ActionEvent event) throws CustomerExistsException {
         /*
         Get input from user and add to Table
          */
             if (isValidInput(event)) {
-                if (genderBox.getValue().equals("Herr")) {
-                        CustomerBeans customerBeans = new CustomerBeans();
-                        customerBeans.setFirstName(firstNameField.getText());
-                        customerBeans.setLastName(lastNameField.getText());
-                        customerBeans.setTelephone(TelephoneField.getText());
-                        customerBeans.setBirthday(BirthdayField.getText());
-                        customerBeans.setGender(genderBox.getValue());
-                        observableCustomerBeansList.add(customerBeans);
-                        System.out.println(customerBeans.toString());
-                        firstNameField.clear();
-                        lastNameField.clear();
-                        BirthdayField.clear();
-                        TelephoneField.clear();
-                        genderBox.setValue("Anrede");
+                if (genderBox.getValue().equals("Herr")||genderBox.getValue().equals("Frau")) {
+
+                    Customer newCustomer=new Customer();
+                    newCustomer.setFirstName(firstNameField.getText());
+                    newCustomer.setLastName(lastNameField.getText());
+                    //newCustomer.setBirthday(BirthdayField.getText());
+                    //newCustomer.setTelephone(TelephoneField.getText());
+                    //newCustomer.setGender(genderBox.getValue());
+
+                    Main.CRS.addCustomer(newCustomer);
+
+                    IStorageController sc = new JpaStorageController();
+
+                    try
+                    {
+                        sc.saveCashRegisterSystem(Main.CRS);
+                    }
+                    catch (StorageException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    observableCustomerBeansList.removeAll(observableCustomerBeansList);
+                    update();
+
                 }
-                if (genderBox.getValue().equals("Frau")) {
-                    CustomerBeans customerBeans = new CustomerBeans();
-                    customerBeans.setFirstName(firstNameField.getText());
-                    customerBeans.setLastName(lastNameField.getText());
-                    customerBeans.setTelephone(TelephoneField.getText());
-                    customerBeans.setBirthday(BirthdayField.getText());
-                    customerBeans.setGender(genderBox.getValue());
-                    observableCustomerBeansList.add(customerBeans);
-                    System.out.println(customerBeans.toString());
-                    firstNameField.clear();
-                    lastNameField.clear();
-                    BirthdayField.clear();
-                    TelephoneField.clear();
-                    genderBox.setValue("Anrede");
-                }
+
 
         }
     }
@@ -283,10 +307,10 @@ public class ControllerCustomer implements Initializable {
     handle column edits
      */
     public void CustomerIDCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
+        TableColumn.CellEditEvent<CustomerBeans, Number> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, Number>) e;
         CustomerBeans customerBeans = cellEditEvent.getRowValue();
-        customerBeans.setCustomerID(cellEditEvent.getNewValue());
+        customerBeans.setCustomerID(cellEditEvent.getNewValue().longValue());
     }
     public void firstNameCol_OnEditCommit(Event e) {
         TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
@@ -320,7 +344,6 @@ public class ControllerCustomer implements Initializable {
     }
     public void handleDeleteButtonClick(ActionEvent event) {
         if(!observableCustomerBeansList.isEmpty()) {
-            System.out.println("Löschen Button gedrückt");
             Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "OK", ButtonType.OK, ButtonType.CANCEL);
             Window owner = ((Node) event.getTarget()).getScene().getWindow();
             deleteAlert.setContentText("Sind Sie sicher das diese Aktion fortgesetzt werden soll?\n\nAKTION KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN");
@@ -330,6 +353,26 @@ public class ControllerCustomer implements Initializable {
             if(deleteAlert.getResult() == ButtonType.OK) {
                 observableCustomerBeansList.removeAll(CustomerTable.getSelectionModel().getSelectedItems());
                 CustomerTable.getSelectionModel().clearSelection();
+                Customer removeCustomer=Main.CRS.findCustomer(CustomerTable.getSelectionModel().getSelectedItem().getCustomerID());
+                if(removeCustomer!=null)
+                {
+                    Main.CRS.getCustomerList().remove(removeCustomer);
+
+                    IStorageController sc = new JpaStorageController();
+
+                    try
+                    {
+                        sc.saveCashRegisterSystem(Main.CRS);
+                    }
+                    catch (StorageException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    observableCustomerBeansList.removeAll(observableCustomerBeansList);
+
+                    update();
+                }
             }
             else {
                 deleteAlert.close();

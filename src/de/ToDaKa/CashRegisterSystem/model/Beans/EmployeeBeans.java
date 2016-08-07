@@ -9,14 +9,14 @@ import sun.util.calendar.BaseCalendar;
 public class EmployeeBeans
 {
 
-        private IntegerProperty EmployeeNr = new SimpleIntegerProperty(this, "MitarbeiterNr", 0);
-        public Integer getEmployeeNr() {
+        private LongProperty EmployeeNr = new SimpleLongProperty(this, "MitarbeiterNr", 0);
+        public long getEmployeeNr() {
             return EmployeeNr.get();
         }
-        public IntegerProperty EmployeeNrProperty() {
+        public LongProperty EmployeeNrProperty() {
             return EmployeeNr;
         }
-        public void setEmployeeNr(Integer EmployeeNr) {
+        public void setEmployeeNr(Long EmployeeNr) {
             this.EmployeeNr.set(EmployeeNr);
         }
 

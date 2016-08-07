@@ -7,14 +7,14 @@ public class CustomerBeans {
 
 
 
-    private StringProperty CustomerID = new SimpleStringProperty(this, "CustomerID", "");
-    public String getCustomerID() {
+    private LongProperty CustomerID = new SimpleLongProperty(this, "CustomerID", 0);
+    public long getCustomerID() {
         return CustomerID.get();
     }
-    public StringProperty CustomerIDProperty() {
+    public LongProperty CustomerIDProperty() {
         return CustomerID;
     }
-    public void setCustomerID(String CustomerID) {
+    public void setCustomerID(long CustomerID) {
         this.CustomerID.set(CustomerID);
     }
 

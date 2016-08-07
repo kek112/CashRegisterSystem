@@ -7,6 +7,14 @@ import java.io.IOException;
 import java.lang.*;
 
 import de.ToDaKa.CashRegisterSystem.CurrentUser;
+import de.ToDaKa.CashRegisterSystem.MD5;
+import de.ToDaKa.CashRegisterSystem.Main;
+import de.ToDaKa.CashRegisterSystem.model.Cashier;
+import de.ToDaKa.CashRegisterSystem.model.Inventory;
+import de.ToDaKa.CashRegisterSystem.model.execptions.CashierExistsException;
+import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -90,6 +98,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
             }
         });
         employeeTable.setEditable(true);
+        update();
 
 
 
@@ -163,7 +172,35 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         });
 
     }
+    private void update()
+    {
+        for(int i = 0; i< Main.CRS.getCashierList().size(); i++)
+        {
 
+            Cashier currentCashier;
+            currentCashier=Main.CRS.getCashierList().get(i);
+
+
+            EmployeeBeans employeeBeans = new EmployeeBeans();
+            employeeBeans.setEmployeeNr  (currentCashier.getId());
+            employeeBeans.setName        (currentCashier.getLastName());
+            employeeBeans.setFirstName   (   currentCashier.getFirstName());
+            //employeeBeans.setPhoneNr     (  );
+            //employeeBeans.setBirthday    (   );
+            if(currentCashier.isAdmin()==true)
+            {
+                employeeBeans.setRights      ("Ja");
+            }
+            else
+            {
+
+                employeeBeans.setRights      ("Nein");
+            }
+
+            observableEmployeeBeansList.add(employeeBeans);
+
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //HANDLES on Edit
@@ -174,7 +211,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         TableColumn.CellEditEvent<EmployeeBeans, Number> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,Number>) e;
         EmployeeBeans employeeBeans = cellEditEvent.getRowValue();
-        employeeBeans.setEmployeeNr(cellEditEvent.getNewValue().intValue());
+        employeeBeans.setEmployeeNr(cellEditEvent.getNewValue().longValue());
 
     }
 
@@ -243,23 +280,42 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     //HANDLE Buttons
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @FXML
-    void handleAddButtonClick(ActionEvent event)
-    {
+    void handleAddButtonClick(ActionEvent event) throws CashierExistsException {
         if(isValidInput(event))
         {
-            if(RightsBox.getValue().equals("Kassierer"))
+            if(RightsBox.getValue().equals("Kassierer")||RightsBox.getValue().equals("Teamleiter"))
             {
 
-                EmployeeBeans employeeBeans = new EmployeeBeans();
-                employeeBeans.setEmployeeNr  (   getnextNumber());
-                employeeBeans.setName        (   NameField.getText());
-                employeeBeans.setFirstName   (   FirstNameField.getText());
-                employeeBeans.setPhoneNr     (   TelephoneField.getText());
-                employeeBeans.setBirthday    (   BirthdayField.getText());
-                employeeBeans.setRights      (   RightsBox.getValue().toString());
+                long newCashierID=Main.CRS.getCashierList().size();
+                Cashier newCashier =new Cashier();
+                newCashier.setFirstName(FirstNameField.getText());
+                newCashier.setLastName(NameField.getText());
+                //TODO
+                newCashier.setMd5Password(MD5.getMD5("test"));
+                if(RightsBox.getValue().toString().equals("Kassierer"))
+                {
+                    newCashier.setAdmin(false);
+                }
+                else
+                {
+                    newCashier.setAdmin(true);
+                }
 
-                observableEmployeeBeansList.add(employeeBeans);
-                System.out.println(employeeBeans.printString());
+                Main.CRS.addCashier(newCashier);
+
+                IStorageController sc = new JpaStorageController();
+
+                try
+                {
+                    sc.saveCashRegisterSystem(Main.CRS);
+                }
+                catch (StorageException e)
+                {
+                    e.printStackTrace();
+                }
+                observableEmployeeBeansList.removeAll(observableEmployeeBeansList);
+
+                update();
 
 
                 NameField.clear();
@@ -269,26 +325,6 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
                 RightsBox.setValue("Berechtigung");
 
 
-            }
-            if(RightsBox.getValue().equals("Teamleiter"))
-            {
-                EmployeeBeans employeeBeans = new EmployeeBeans();
-                employeeBeans.setEmployeeNr  (   5);
-                employeeBeans.setName        (   NameField.getText());
-                employeeBeans.setFirstName   (   FirstNameField.getText());
-                employeeBeans.setPhoneNr     (   TelephoneField.getText());
-                employeeBeans.setBirthday    (   BirthdayField.getText());
-                employeeBeans.setRights      (   RightsBox.getValue().toString());
-
-                observableEmployeeBeansList.add(employeeBeans);
-                System.out.println(employeeBeans.printString());
-
-
-                NameField.clear();
-                FirstNameField.clear();
-                TelephoneField.clear();
-                BirthdayField.clear();
-                RightsBox.setValue("Berechtigung");
             }
         }
     }
@@ -307,8 +343,26 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
             if(deleteAlert.getResult() == ButtonType.OK)
             {
-                observableEmployeeBeansList.removeAll(employeeTable.getSelectionModel().getSelectedItems());
-                employeeTable.getSelectionModel().clearSelection();
+                Cashier removeCashier=Main.CRS.findCashier(employeeTable.getSelectionModel().getSelectedItem().getEmployeeNr());
+                if(removeCashier!=null)
+                {
+                Main.CRS.getCashierList().remove(removeCashier);
+
+                IStorageController sc = new JpaStorageController();
+
+                try
+                {
+                    sc.saveCashRegisterSystem(Main.CRS);
+                }
+                catch (StorageException e)
+                {
+                    e.printStackTrace();
+                }
+
+                observableEmployeeBeansList.removeAll(observableEmployeeBeansList);
+
+                 update();
+                }
             }
             else
             {
@@ -483,7 +537,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         return validInput;
 
     }
-    int getnextNumber()
+    long getnextNumber()
     {
         return 2;
     }
