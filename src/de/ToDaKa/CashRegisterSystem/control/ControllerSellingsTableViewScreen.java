@@ -2,7 +2,10 @@ package de.ToDaKa.CashRegisterSystem.control;
 
 
 import de.ToDaKa.CashRegisterSystem.CurrentUser;
+import de.ToDaKa.CashRegisterSystem.Main;
 import de.ToDaKa.CashRegisterSystem.model.Beans.SellingBeans;
+import de.ToDaKa.CashRegisterSystem.model.Bon;
+import de.ToDaKa.CashRegisterSystem.model.Cashier;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -72,6 +75,7 @@ public class ControllerSellingsTableViewScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        update();
         //initialize editable attributes
         BonTable.setEditable(true);
         CustomerCol.setOnEditCommit(e -> CustomerCol_OnEditCommit(e));
@@ -94,7 +98,29 @@ public class ControllerSellingsTableViewScreen implements Initializable {
         BonTable.setPlaceholder(new Label("Tabelle ist leer"));
 
     }//end initialize
+    private void update()
+    {
+        Cashier currentCashier= Main.CRS.findCashier(CurrentUser.getCurrentUserID());
+        Bon currentBon;
+        for(int i=0; i<currentCashier.getBon().size();i++)
+        {
+            currentBon=currentCashier.getBon().get(i);
+            SellingBeans sellingBeans=new SellingBeans();
+            sellingBeans.setBonID(currentBon.getId().intValue());
+            //sellingBeans.setCustomer(currentBon.getCustomer().getLastName()+", "+currentBon.getCustomer().getFirstName());
+            //sellingBeans.setDate(currentBon.getCreated().toString());
 
+            float completePrice=0;
+            for(int j=0; j<currentCashier.getBon().get(i).getBonInventory().size();j++)
+            {
+                completePrice+=currentCashier.getBon().get(i).getBonInventory().get(j).getPrice();
+            }
+            sellingBeans.setPrice(completePrice);
+
+            observableSellingBeansList.add(sellingBeans);
+
+        }
+    }
 
     /*
     handle column edits

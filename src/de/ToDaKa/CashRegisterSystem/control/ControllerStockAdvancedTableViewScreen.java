@@ -259,14 +259,29 @@ public class ControllerStockAdvancedTableViewScreen implements Initializable
     @FXML
     private void NameCol_OnEditCommit(Event e)
     {
+        System.out.println("Wurde editzier");
         TableColumn.CellEditEvent<StockBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<StockBeans,String>) e;
-        StockBeans stockBeans = cellEditEvent.getRowValue();
-        stockBeans.setName(cellEditEvent.getNewValue());
 
         StockBeans stockrow= (StockBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<StockBeans, String>) e).getTablePosition().getRow());
 
-        System.out.println(stockrow.getBarcode());
+        Main.CRS.findInventory(Long.parseLong(stockrow.getBarcode())).setName(cellEditEvent.getNewValue());
+
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableStockBeansList.removeAll(observableStockBeansList);
+        update();
+
+
     }
 
     @FXML

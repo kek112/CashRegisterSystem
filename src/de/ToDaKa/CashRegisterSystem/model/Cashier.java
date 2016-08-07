@@ -42,6 +42,10 @@ public class Cashier extends AbstractDatabaseEntity implements Comparable<Custom
             _Bon.setCashier(this);
         }
     }
+    public List<Bon> getBon()
+    {
+        return m_Bon;
+    }
 
 
     public Bon findBon(Bon _Bon)

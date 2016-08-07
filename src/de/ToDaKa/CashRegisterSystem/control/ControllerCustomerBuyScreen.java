@@ -196,7 +196,7 @@ public class ControllerCustomerBuyScreen implements Initializable {
                             Main.CRS.addBon(currentBon);
                             currentBon.setCashier(Main.CRS.findCashier(CurrentUser.getCurrentUserID()));
                             //TODO
-                            currentBon.setCustomer(Main.CRS.findCustomer(0));
+                            currentBon.setCustomer(null);
                         }
                         else
                         {
@@ -204,8 +204,8 @@ public class ControllerCustomerBuyScreen implements Initializable {
                             {
                                 if(currentBon.getBonInventory().get(i).getInventory().getBarcode()==Long.parseLong(barcodeField.getText()))
                                 {
-                                    currentBon.getBonInventory().size();
                                     currentBonInventory=currentBon.getBonInventorys().get(i);
+                                    i=currentBon.getBonInventory().size();
                                 }
                             }
                         }
@@ -214,12 +214,31 @@ public class ControllerCustomerBuyScreen implements Initializable {
                             currentBonInventory=new BonInventory(Amount,currentBon, currentInventory);
                             currentBon.addBonInventory(currentBonInventory);
                             currentInventory.addBonInventory(currentBonInventory);
+
+
                         }
                         else
                         {
                             currentBonInventory.setAmount(Amount+currentBonInventory.getAmount());
                         }
-                        currentInventory.setAmount(currentInventory.getAmount()-Amount);
+                        int amountInventory=currentInventory.getAmount();
+                        //currentInventory.setAmount(amountInventory-Amount);
+
+
+                        currentBon.setCashier(Main.CRS.findCashier(CurrentUser.getCurrentUserID()));
+                        currentBon.getCashier().addBon(currentBon);
+
+                        currentBon.setCustomer(null);
+
+                        try
+                        {
+                            sc.saveCashRegisterSystem(Main.CRS);
+                        }
+                        catch (StorageException e)
+                        {
+                            e.printStackTrace();
+                        }
+
 
                         observableCustomerBuyBeansList.removeAll(observableCustomerBuyBeansList);
                         barcodeField.clear();

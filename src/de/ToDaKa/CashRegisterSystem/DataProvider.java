@@ -35,7 +35,7 @@ public class  DataProvider {
             CRS.addInventory(new Inventory(Long.parseLong("4014348916158"),"GLYSANTIN G48",14,14.99f, false));
             CRS.addInventory(new Inventory(Long.parseLong("4008400204727"),"Kinder Schokolade",16,0.99f, true));
             CRS.addInventory(new Inventory(Long.parseLong("3661075047818"),"Feuerzeug Lila",53,0.50f, false));
-            CRS.addInventory(new Inventory(Long.parseLong("9783808536261"),"Informationstechnik, Neue Netze",27,33.5f, false));
+            CRS.addInventory(new Inventory(Long.parseLong("3661075247818"),"Informationstechnik, Neue Netze",27,33.5f, false));
             CRS.addInventory(new Inventory(Long.parseLong("4104640015014"),"Förstina Sprudel Naturell",45,0.39f, true));
             CRS.addInventory(new Inventory(Long.parseLong("4250542847472"),"Collegeblock 80 Blatt",23,0.99f, false));
 
