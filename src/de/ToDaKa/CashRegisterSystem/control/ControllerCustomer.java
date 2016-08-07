@@ -313,16 +313,48 @@ public class ControllerCustomer implements Initializable {
         customerBeans.setCustomerID(cellEditEvent.getNewValue().longValue());
     }
     public void firstNameCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
-        CustomerBeans customerBeans = cellEditEvent.getRowValue();
-        customerBeans.setFirstName(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans,String>) e;
+
+        CustomerBeans customerrow= (CustomerBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBeans, String>) e).getTablePosition().getRow());
+
+        Main.CRS.findCashier(customerrow.getCustomerID()).setFirstName(cellEditEvent.getNewValue());
+
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableCustomerBeansList.removeAll(observableCustomerBeansList);
+        update();
     }
     public void lastNameCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
-        CustomerBeans customerBeans = cellEditEvent.getRowValue();
-        customerBeans.setLastName(cellEditEvent.getNewValue());
+        TableColumn.CellEditEvent<CustomerBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans,String>) e;
+
+        CustomerBeans customerrow= (CustomerBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBeans, String>) e).getTablePosition().getRow());
+
+        Main.CRS.findCashier(customerrow.getCustomerID()).setLastName(cellEditEvent.getNewValue());
+
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableCustomerBeansList.removeAll(observableCustomerBeansList);
+        update();
     }
     public void TelephoneCol_OnEditCommit(Event e) {
         TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;

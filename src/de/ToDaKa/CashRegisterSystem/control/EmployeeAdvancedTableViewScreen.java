@@ -189,15 +189,29 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
             employeeBeans.setEmployeeNr  (currentCashier.getId());
             employeeBeans.setName        (currentCashier.getLastName());
             employeeBeans.setFirstName   (   currentCashier.getFirstName());
-            //employeeBeans.setPhoneNr     (  );
-            //employeeBeans.setBirthday    (   );
+            if(!employeeBeans.getPhoneNr().isEmpty())
+            {
+            employeeBeans.setPhoneNr     (Long.toString(currentCashier.getTelephone()));
+            }
+            if(!employeeBeans.getBirthday().isEmpty())
+            {
+                SimpleDateFormat formater=new SimpleDateFormat("dd.MM.yyyy");
+                try {
+                    employeeBeans.setBirthday(formater.format(currentCashier.getBirtdate()).toString());
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+
+                }
             if(currentCashier.isAdmin()==true)
             {
                 employeeBeans.setRights      ("Ja");
             }
             else
             {
-
                 employeeBeans.setRights      ("Nein");
             }
 
@@ -302,10 +316,11 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         try {
             Main.CRS.findCashier(employeerow.getEmployeeNr()).setBirtdate(new SimpleDateFormat("dd.MM.yyyy").parse(cellEditEvent.getNewValue()));
         }
-        catch (ParseException ParsEx)
+        catch (Exception ex)
         {
-            ParsEx.printStackTrace();
+
         }
+
         IStorageController sc = new JpaStorageController();
 
         try
