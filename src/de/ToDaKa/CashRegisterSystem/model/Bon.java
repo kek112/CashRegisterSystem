@@ -23,7 +23,8 @@ public class Bon extends AbstractDatabaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Cashier m_Cashier;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Customer m_Customer;
+    private Customer m_Customer=null;
+    private boolean m_isPayed=false;
 
     public Bon()
     {
@@ -91,5 +92,13 @@ public class Bon extends AbstractDatabaseEntity {
 
     public void setBonInventory(List<BonInventory> BonInventory) {
         this.m_BonInventory = BonInventory;
+    }
+
+    public boolean isPayed() {
+        return m_isPayed;
+    }
+
+    public void isPayed(boolean _isPayed) {
+        this.m_isPayed = _isPayed;
     }
 }

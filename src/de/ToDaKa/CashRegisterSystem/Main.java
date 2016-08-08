@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.text.SimpleDateFormat;
 /*
 Create new CRS sav
 
@@ -22,7 +24,7 @@ public class Main extends Application {
 
     public static CashRegisterSystem CRS;
     public Cashier currentCashier;
-
+    public static SimpleDateFormat dateFormat =new SimpleDateFormat("dd.MM.yyyy");
 
     public static void main(String[] args) throws BonExistsException {
 

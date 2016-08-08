@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -33,12 +34,12 @@
             </HBox>
             <TableView fx:id="employeeTable" layoutX="1.0" layoutY="24.0" prefHeight="422.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
               <columns>
-                  <TableColumn fx:id="EmployeeCol" editable="true" minWidth="160.0" onEditCommit="#EmployeeNrCol_OnEditCommit" prefWidth="-1.0" text="Mitarbeiter Nr" />
-                  <TableColumn fx:id="NameCol" minWidth="160.0" onEditCommit="#NameCol_OnEditCommit" prefWidth="-1.0" text="Name" />
-                <TableColumn fx:id="FirstNameCol" minWidth="160.0" onEditCommit="#FirstName_OnEditCommit" prefWidth="-1.0" text="Vorname" />
-                <TableColumn fx:id="PhoneNrCol" minWidth="160.0" onEditCommit="#Telephone_OnEditCommit" prefWidth="-1.0" text="Telefon" />
-                  <TableColumn fx:id="BirthdayCol" minWidth="160.0" onEditCommit="#Birthday_OnEditCommit" prefWidth="-1.0" text="Geburtstag" />
-                  <TableColumn fx:id="RightsCol" onEditCommit="#Rights_OnEditCommit" prefWidth="184.0" text="Berechtigung" />
+                  <TableColumn fx:id="EmployeeCol" editable="true" minWidth="100.0" onEditCommit="#EmployeeNrCol_OnEditCommit" prefWidth="-1.0" text="Mitarbeiter Nr" />
+                  <TableColumn fx:id="NameCol" minWidth="140.0" onEditCommit="#NameCol_OnEditCommit" prefWidth="-1.0" text="Name" />
+                <TableColumn fx:id="FirstNameCol" minWidth="140.0" onEditCommit="#FirstName_OnEditCommit" prefWidth="-1.0" text="Vorname" />
+                <TableColumn fx:id="PhoneNrCol" minWidth="140.0" onEditCommit="#Telephone_OnEditCommit" prefWidth="-1.0" text="Telefon" />
+                  <TableColumn fx:id="BirthdayCol" minWidth="140.0" onEditCommit="#Birthday_OnEditCommit" prefWidth="-1.0" text="Geburtstag" />
+                  <TableColumn fx:id="RightsCol" minWidth="140.0" onEditCommit="#Rights_OnEditCommit" prefWidth="-1.0" text="Berechtigung" />
               </columns>
             </TableView>
          </children></AnchorPane>
@@ -47,14 +48,16 @@
             <HBox />
             <TextField fx:id="NameField" layoutX="14.0" layoutY="14.0" promptText="Name..." />
              <TextField fx:id="FirstNameField" layoutX="14.0" layoutY="56.0" promptText="Vorname..." />
-             <TextField fx:id="BirthdayField" layoutX="201.0" layoutY="56.0" promptText="Geburtstag..." />
              <TextField fx:id="TelephoneField" layoutX="14.0" layoutY="96.0" promptText="Telefon..." />
-            <ComboBox fx:id="RightsBox" layoutX="201.0" layoutY="96.0" prefWidth="150.0" promptText="Berechtigung" />
-             <Button layoutX="263.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Zurücksetzen" />
-             <Button fx:id="addBtn" layoutX="520.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
+             <TextField fx:id="BirthdayField" layoutX="208.0" layoutY="14.0" promptText="Geburtstag..." />
+             <PasswordField fx:id="PasswordField1" layoutX="208.0" layoutY="56.0" promptText="Passwort..." />
+             <PasswordField fx:id="PasswordField2" layoutX="208.0" layoutY="97.0" promptText="Passwort wiederholen..." />
+            <ComboBox fx:id="RightsBox" layoutX="402.0" layoutY="97.0" prefWidth="150.0" promptText="Berechtigung" />
+             <Button layoutX="402.0" layoutY="57.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Zurücksetzen" />
+             <Button fx:id="addBtn" layoutX="505.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
             <Button fx:id="deleteBtn" layoutX="612.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Löschen" />
              <Button fx:id="BackButton" layoutX="693.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
-             <TextField fx:id="filterInput" layoutX="524.0" layoutY="84.0" promptText="Filter Table..." />
+             <TextField fx:id="filterInput" layoutX="572.0" layoutY="81.0" promptText="Filter Table..." />
                 </children></AnchorPane>
   </items>
 </SplitPane>

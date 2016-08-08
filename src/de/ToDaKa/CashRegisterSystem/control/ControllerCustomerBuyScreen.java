@@ -4,6 +4,7 @@ package de.ToDaKa.CashRegisterSystem.control;
 import de.ToDaKa.CashRegisterSystem.CurrentUser;
 import de.ToDaKa.CashRegisterSystem.Main;
 import de.ToDaKa.CashRegisterSystem.model.Beans.CustomerBuyBeans;
+import de.ToDaKa.CashRegisterSystem.model.Beans.StockBeans;
 import de.ToDaKa.CashRegisterSystem.model.Bon;
 import de.ToDaKa.CashRegisterSystem.model.BonInventory;
 import de.ToDaKa.CashRegisterSystem.model.Customer;
@@ -24,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -76,6 +78,12 @@ public class ControllerCustomerBuyScreen implements Initializable {
 
     @FXML // fx:id="amountField"
     private TextField amountField;
+
+    @FXML // fx:id="PriceField"
+    private Text PriceField;
+
+    @FXML // fx:id="customerField"
+    private TextField customerField;
 
     @FXML
     private TextField filterInput;
@@ -173,6 +181,13 @@ public class ControllerCustomerBuyScreen implements Initializable {
                 {
                     CustomerBuyBeans.setIsFood("Nein");
                 }
+                float completePrice=0;
+                for(int j=0; j<currentBon.getBonInventory().size();j++)
+                {
+                    completePrice+=currentBon.getBonInventory().get(j).getPrice()*currentBon.getBonInventory().get(i).getAmount();
+                }
+                PriceField.setText(Float.toString(completePrice));
+
                 observableCustomerBuyBeansList.add(CustomerBuyBeans);
 
             }
@@ -209,8 +224,11 @@ public class ControllerCustomerBuyScreen implements Initializable {
                             currentBon=new Bon();
                             Main.CRS.addBon(currentBon);
                             currentBon.setCashier(Main.CRS.findCashier(CurrentUser.getCurrentUserID()));
-                            //TODO
-                            currentBon.setCustomer(null);
+                            if(!customerField.getText().isEmpty())
+                            {
+                                currentBon.setCustomer(Main.CRS.findCustomer(Long.parseLong(customerField.getText())));
+                                System.out.println(Main.CRS.findCustomer(Long.parseLong(customerField.getText())).getFirstName());
+                            }
                         }
                         else
                         {
@@ -239,7 +257,6 @@ public class ControllerCustomerBuyScreen implements Initializable {
                         currentInventory.setAmount(amountInventory-Amount);
 
 
-                        currentBon.setCashier(Main.CRS.findCashier(CurrentUser.getCurrentUserID()));
                         currentBon.getCashier().addBon(currentBon);
 
                         currentBon.setCustomer(null);
@@ -324,16 +341,82 @@ public class ControllerCustomerBuyScreen implements Initializable {
         customerBuyBeans.setArticleName(cellEditEvent.getNewValue());
     }
     public void AmountCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBuyBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBuyBeans, String>) e;
-        CustomerBuyBeans customerBuyBeans = cellEditEvent.getRowValue();
-        customerBuyBeans.setAmount(Integer.parseInt(cellEditEvent.getNewValue()));
+        IStorageController sc = new JpaStorageController();
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        TableColumn.CellEditEvent<CustomerBuyBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBuyBeans,String>) e;
+
+        CustomerBuyBeans customerBuyBeansRow= (CustomerBuyBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBuyBeans, String>) e).getTablePosition().getRow());
+
+        for(int i=0;i<currentBon.getBonInventorys().size();i++)
+        {
+            if(currentBon.getBonInventorys().get(i).getInventory().getBarcode()==customerBuyBeansRow.getBarcode());
+            {
+                currentBon.getBonInventory().get(i).setAmount(Integer.parseInt(cellEditEvent.getNewValue()));
+            }
+        }
+
+
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableCustomerBuyBeansList.removeAll(observableCustomerBuyBeansList);
+        update();
+
+
     }
     public void PriceCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBuyBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBuyBeans, String>) e;
-        CustomerBuyBeans CustomerBuyBeans = cellEditEvent.getRowValue();
-        CustomerBuyBeans.setPrice(Long.parseLong(cellEditEvent.getNewValue()));
+        IStorageController sc = new JpaStorageController();
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        TableColumn.CellEditEvent<CustomerBuyBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBuyBeans,String>) e;
+
+        CustomerBuyBeans customerBuyBeansRow= (CustomerBuyBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBuyBeans, String>) e).getTablePosition().getRow());
+
+        for(int i=0;i<currentBon.getBonInventorys().size();i++)
+        {
+            if(currentBon.getBonInventorys().get(i).getInventory().getBarcode()==customerBuyBeansRow.getBarcode());
+            {
+                currentBon.getBonInventory().get(i).setPrice(Float.parseFloat(cellEditEvent.getNewValue()));
+            }
+        }
+
+
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableCustomerBuyBeansList.removeAll(observableCustomerBuyBeansList);
+        update();
     }
     public void isFoodCol_OnEditCommit(Event e) {
         TableColumn.CellEditEvent<CustomerBuyBeans, String> cellEditEvent;
@@ -349,38 +432,32 @@ public class ControllerCustomerBuyScreen implements Initializable {
         }
     }
     public void handleDeleteButtonClick(ActionEvent event) {
-        if(!observableCustomerBuyBeansList.isEmpty()) {
-            System.out.println("Löschen Button gedrückt");
-            Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "OK", ButtonType.OK, ButtonType.CANCEL);
-            Window owner = ((Node) event.getTarget()).getScene().getWindow();
-            deleteAlert.setContentText("Sind Sie sicher das diese Aktion vortgesetzt werden soll?\n\nAKTION KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN");
-            deleteAlert.initModality(Modality.APPLICATION_MODAL);
-            deleteAlert.initOwner(owner);
-            deleteAlert.showAndWait();
-            if(deleteAlert.getResult() == ButtonType.OK) {
-                int amountOnBon=StockTable.getSelectionModel().getSelectedItem().getAmount();
-                long barcode=StockTable.getSelectionModel().getSelectedItem().getBarcode();
-                int amountOnInventar=Main.CRS.findInventory(barcode).getAmount();
 
-                Main.CRS.findInventory(barcode).setAmount(amountOnInventar+amountOnBon);
-
-
-
-                observableCustomerBuyBeansList.removeAll(StockTable.getSelectionModel().getSelectedItems());
-                StockTable.getSelectionModel().clearSelection();
-
-            }
-            else {
-                deleteAlert.close();
-            }
         }
-    }
+
     public void handleClearButtonClick(ActionEvent event) {
         barcodeField.clear();
         amountField.setText("1");
     }
 
     public void handleCheckoutClick(ActionEvent event) {
+        if(!customerField.getText().isEmpty())
+        {
+            currentBon.setCustomer(Main.CRS.findCustomer(Long.parseLong(customerField.getText())));
+        }
+        customerField.setText("");
+        if(currentBon!=null)
+        {currentBon.isPayed(true);}
+
+        IStorageController sc = new JpaStorageController();
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException e)
+        {
+            e.printStackTrace();
+        }
         currentBon=null;
         Stage secondaryStage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -412,7 +489,21 @@ public class ControllerCustomerBuyScreen implements Initializable {
 
     @FXML
     public void handleBackButtonClick(ActionEvent event)throws Exception {
+        if(currentBon!=null)
+        {
+        currentBon.isPayed(false);
         currentBon=null;
+        }
+        IStorageController sc = new JpaStorageController();
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException e)
+        {
+            e.printStackTrace();
+        }
+
         if(CurrentUser.isAdmin())
         {
             CFObject.switchScene(event,"Admin_Menu.fxml");

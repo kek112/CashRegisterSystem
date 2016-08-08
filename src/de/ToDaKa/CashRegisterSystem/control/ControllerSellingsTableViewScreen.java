@@ -6,6 +6,9 @@ import de.ToDaKa.CashRegisterSystem.Main;
 import de.ToDaKa.CashRegisterSystem.model.Beans.SellingBeans;
 import de.ToDaKa.CashRegisterSystem.model.Bon;
 import de.ToDaKa.CashRegisterSystem.model.Cashier;
+import de.ToDaKa.CashRegisterSystem.storage.IStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.JpaStorageController;
+import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -106,15 +109,31 @@ public class ControllerSellingsTableViewScreen implements Initializable {
     }//end initialize
     private void update()
     {
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
         Cashier currentCashier= Main.CRS.findCashier(CurrentUser.getCurrentUserID());
         Bon currentBon;
+
+        System.out.println(currentCashier.getBon().size());
         for(int i=0; i<currentCashier.getBon().size();i++)
         {
+
+
+            System.out.println(currentCashier.getBon().size());
             currentBon=currentCashier.getBon().get(i);
             SellingBeans sellingBeans=new SellingBeans();
             sellingBeans.setBonID(currentBon.getId().intValue());
-            //sellingBeans.setCustomer(currentBon.getCustomer().getLastName()+", "+currentBon.getCustomer().getFirstName());
-            //sellingBeans.setDate(currentBon.getCreated().toString());
+            sellingBeans.setCustomer(currentBon.getCustomer().getLastName()+", "+currentBon.getCustomer().getFirstName());
+
+            //sellingBeans.setDate(Main.dateFormat.format(currentBon.getCreated()));
 
             float completePrice=0;
             for(int j=0; j<currentCashier.getBon().get(i).getBonInventory().size();j++)

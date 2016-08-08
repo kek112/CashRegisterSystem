@@ -19,8 +19,10 @@ import java.util.List;
 public class Cashier extends AbstractDatabaseEntity implements Comparable<Customer>, Serializable {
     private String m_FirstName;
     private String m_LastName;
-    boolean IsAdmin;
+    private boolean IsAdmin;
     String Md5Password;
+    private long m_Telephone;
+    private Date m_Birtdate;
 
     public long getTelephone() {
         return m_Telephone;
@@ -38,8 +40,6 @@ public class Cashier extends AbstractDatabaseEntity implements Comparable<Custom
         this.m_Birtdate = _Birtdate;
     }
 
-    private long m_Telephone;
-    private Date m_Birtdate;
     @OneToMany(cascade={CascadeType.PERSIST},mappedBy = "m_Cashier")
     private List<Bon> m_Bon=new ArrayList<Bon>();
 
@@ -48,9 +48,11 @@ public class Cashier extends AbstractDatabaseEntity implements Comparable<Custom
     public Cashier() {
     }
 
-    public Cashier(String _FirstName, String _LastName, String _Md5Password, boolean _IsAdmin) {
+    public Cashier(String _FirstName, String _LastName, long _Telephone, Date _Birthday,  String _Md5Password, boolean _IsAdmin) {
         this.m_FirstName = _FirstName;
         this.m_LastName = _LastName;
+        this.m_Birtdate=_Birthday;
+        this.m_Telephone=_Telephone;
         this.IsAdmin=_IsAdmin;
         this.Md5Password = _Md5Password;
     }

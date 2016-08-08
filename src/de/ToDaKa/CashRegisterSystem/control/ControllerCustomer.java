@@ -30,6 +30,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.io.*;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ResourceBundle;
 
 /**
@@ -189,9 +190,16 @@ public class ControllerCustomer implements Initializable {
             customerBeans.setCustomerID(currentCustomer.getId());
             customerBeans.setFirstName(currentCustomer.getFirstName());
             customerBeans.setLastName(currentCustomer.getLastName());
-            //customerBeans.setTelephone();
-            //customerBeans.setBirthday();
-            //customerBeans.setGender());
+            customerBeans.setTelephone("0"+Long.toString(currentCustomer.getTelephone()));
+            customerBeans.setBirthday(Main.dateFormat.format(currentCustomer.getBirthday()));
+            if(currentCustomer.isMale())
+            {
+                customerBeans.setGender("Herr");
+            }
+            else
+            {
+                customerBeans.setGender("Frau");
+            }
             observableCustomerBeansList.add(customerBeans);
         }
     }
@@ -210,10 +218,21 @@ public class ControllerCustomer implements Initializable {
                     Customer newCustomer=new Customer();
                     newCustomer.setFirstName(firstNameField.getText());
                     newCustomer.setLastName(lastNameField.getText());
-                    //newCustomer.setBirthday(BirthdayField.getText());
-                    //newCustomer.setTelephone(TelephoneField.getText());
-                    //newCustomer.setGender(genderBox.getValue());
+                    try {
+                        newCustomer.setBirthday(Main.dateFormat.parse(BirthdayField.getText()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    newCustomer.setTelephone(Long.parseLong(TelephoneField.getText()));
+                    if(genderBox.getValue().compareTo("Herr")==0)
+                    {
+                        newCustomer.isMale(true);
 
+                    }
+                    else
+                    {
+                        newCustomer.isMale(false);
+                    }
                     Main.CRS.addCustomer(newCustomer);
 
                     IStorageController sc = new JpaStorageController();
@@ -319,14 +338,22 @@ public class ControllerCustomer implements Initializable {
         customerBeans.setCustomerID(cellEditEvent.getNewValue().longValue());
     }
     public void firstNameCol_OnEditCommit(Event e) {
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
         TableColumn.CellEditEvent<CustomerBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans,String>) e;
 
         CustomerBeans customerrow= (CustomerBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBeans, String>) e).getTablePosition().getRow());
 
-        Main.CRS.findCashier(customerrow.getCustomerID()).setFirstName(cellEditEvent.getNewValue());
-
-        IStorageController sc = new JpaStorageController();
+        Main.CRS.findCustomer(customerrow.getCustomerID()).setFirstName(cellEditEvent.getNewValue());
 
         try
         {
@@ -341,14 +368,23 @@ public class ControllerCustomer implements Initializable {
         update();
     }
     public void lastNameCol_OnEditCommit(Event e) {
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
         TableColumn.CellEditEvent<CustomerBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans,String>) e;
 
         CustomerBeans customerrow= (CustomerBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBeans, String>) e).getTablePosition().getRow());
 
-        Main.CRS.findCashier(customerrow.getCustomerID()).setLastName(cellEditEvent.getNewValue());
+        Main.CRS.findCustomer(customerrow.getCustomerID()).setLastName(cellEditEvent.getNewValue());
 
-        IStorageController sc = new JpaStorageController();
 
         try
         {
@@ -363,22 +399,108 @@ public class ControllerCustomer implements Initializable {
         update();
     }
     public void TelephoneCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
-        CustomerBeans customerBeans = cellEditEvent.getRowValue();
-        customerBeans.setTelephone(cellEditEvent.getNewValue());
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+        TableColumn.CellEditEvent<CustomerBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans,String>) e;
+
+        CustomerBeans customerrow= (CustomerBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBeans, String>) e).getTablePosition().getRow());
+
+        Main.CRS.findCustomer(customerrow.getCustomerID()).setTelephone(Long.parseLong(cellEditEvent.getNewValue()));
+
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableCustomerBeansList.removeAll(observableCustomerBeansList);
+        update();
     }
     public void BirthdayCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
-        CustomerBeans customerBeans = cellEditEvent.getRowValue();
-        customerBeans.setBirthday(cellEditEvent.getNewValue());
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+        TableColumn.CellEditEvent<CustomerBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans,String>) e;
+
+        CustomerBeans customerrow= (CustomerBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBeans, String>) e).getTablePosition().getRow());
+
+        try {
+            Main.CRS.findCustomer(customerrow.getCustomerID()).setBirthday(Main.dateFormat.parse(cellEditEvent.getNewValue()));
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableCustomerBeansList.removeAll(observableCustomerBeansList);
+        update();
     }
     public void genderCol_OnEditCommit(Event e) {
-        TableColumn.CellEditEvent<CustomerBeans, String> cellEditEvent;
-        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans, String>) e;
-        CustomerBeans customerBeans = cellEditEvent.getRowValue();
-        customerBeans.setGender(cellEditEvent.getNewValue());
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+        TableColumn.CellEditEvent<CustomerBeans,String> cellEditEvent;
+        cellEditEvent = (TableColumn.CellEditEvent<CustomerBeans,String>) e;
+
+        CustomerBeans customerrow= (CustomerBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<CustomerBeans, String>) e).getTablePosition().getRow());
+
+        if(cellEditEvent.getNewValue().compareTo("Herr")==0)
+        {
+            Main.CRS.findCustomer(customerrow.getCustomerID()).isMale(true);
+        }
+        else if(cellEditEvent.getNewValue().compareTo("Frau")==0)
+        {
+            Main.CRS.findCustomer(customerrow.getCustomerID()).isMale(false);
+        }
+
+
+        try
+        {
+            sc.saveCashRegisterSystem(Main.CRS);
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        observableCustomerBeansList.removeAll(observableCustomerBeansList);
+        update();
     }
     public void handleDeleteButtonClick(ActionEvent event) {
         if(!observableCustomerBeansList.isEmpty()) {

@@ -31,10 +31,8 @@ import javafx.stage.Window;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
-import java.sql.Date;
-import java.text.DateFormat;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import de.ToDaKa.CashRegisterSystem.model.Beans.*;
@@ -81,6 +79,10 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     private TextField FirstNameField;
     @FXML
     private TextField TelephoneField;
+    @FXML
+    private PasswordField PasswordField1;
+    @FXML
+    private PasswordField PasswordField2;
     @FXML
     private TextField filterInput;
     @FXML
@@ -193,23 +195,9 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
             employeeBeans.setEmployeeNr  (currentCashier.getId());
             employeeBeans.setName        (currentCashier.getLastName());
             employeeBeans.setFirstName   (   currentCashier.getFirstName());
-            if(!employeeBeans.getPhoneNr().isEmpty())
-            {
-            employeeBeans.setPhoneNr     (Long.toString(currentCashier.getTelephone()));
-            }
-            if(!employeeBeans.getBirthday().isEmpty())
-            {
-                SimpleDateFormat formater=new SimpleDateFormat("dd.MM.yyyy");
-                try {
-                    employeeBeans.setBirthday(formater.format(currentCashier.getBirtdate()).toString());
-                }
-                catch (Exception ex)
-                {
+            employeeBeans.setPhoneNr     ("0"+Long.toString(currentCashier.getTelephone()));
+            employeeBeans.setBirthday(Main.dateFormat.format(currentCashier.getBirtdate()).toString());
 
-                }
-
-
-                }
             if(currentCashier.isAdmin()==true)
             {
                 employeeBeans.setRights      ("Ja");
@@ -356,7 +344,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
         EmployeeBeans employeerow= (EmployeeBeans) cellEditEvent.getTableView().getItems().get(((TableColumn.CellEditEvent<EmployeeBeans, String>) e).getTablePosition().getRow());
         try {
-            Main.CRS.findCashier(employeerow.getEmployeeNr()).setBirtdate(new SimpleDateFormat("dd.MM.yyyy").parse(cellEditEvent.getNewValue()));
+            Main.CRS.findCashier(employeerow.getEmployeeNr()).setBirtdate(Main.dateFormat.parse(cellEditEvent.getNewValue()));
         }
         catch (Exception ex)
         {
@@ -397,13 +385,19 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         {
             if(RightsBox.getValue().equals("Kassierer")||RightsBox.getValue().equals("Teamleiter"))
             {
+                if(PasswordField1.getText().compareTo(PasswordField2.getText())==0)
 
-                long newCashierID=Main.CRS.getCashierList().size();
+                {
                 Cashier newCashier =new Cashier();
                 newCashier.setFirstName(FirstNameField.getText());
                 newCashier.setLastName(NameField.getText());
-                //TODO
-                newCashier.setMd5Password(MD5.getMD5("test"));
+                newCashier.setTelephone(Long.parseLong(TelephoneField.getText()));
+                try {
+                    newCashier.setBirtdate(Main.dateFormat.parse(BirthdayField.getText()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                newCashier.setMd5Password(MD5.getMD5(PasswordField1.getText()));
                 if(RightsBox.getValue().toString().equals("Kassierer"))
                 {
                     newCashier.setAdmin(false);
@@ -434,9 +428,11 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
                 FirstNameField.clear();
                 TelephoneField.clear();
                 BirthdayField.clear();
+                PasswordField1.clear();
+                PasswordField2.clear();
                 RightsBox.setValue("Berechtigung");
 
-
+                }
             }
         }
     }
@@ -505,6 +501,8 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
         FirstNameField.clear();
         TelephoneField.clear();
         BirthdayField.clear();
+        PasswordField1.clear();
+        PasswordField2.clear();
         RightsBox.setValue("Berechtigung");
     }
     @FXML
@@ -595,8 +593,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
             }
         }
 
-
-        //Check  Amount for empty
+        //check birthday is empty
         if( BirthdayField== null || BirthdayField.getText().trim().isEmpty())
         {
             validInput = false;
@@ -611,13 +608,13 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
                 BirthdayField.requestFocus();
             }
         }
-        //Check  Amount for empty
+        //check telephone is empty
         if(TelephoneField == null || TelephoneField.getText().trim().isEmpty())
         {
             validInput = false;
             Alert emptyPrice = new Alert(Alert.AlertType.WARNING, "Warnung", ButtonType.OK);
             Window owner = ((Node) event.getTarget()).getScene().getWindow();
-            emptyPrice.setContentText("Preis ist leer");
+            emptyPrice.setContentText("Telefonnummer ist leer");
             emptyPrice.initModality(Modality.APPLICATION_MODAL);
             emptyPrice.initOwner(owner);
             emptyPrice.showAndWait();
@@ -626,8 +623,7 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
                 TelephoneField.requestFocus();
             }
         }
-
-        //Check  isFood for empty
+        //
         if(RightsBox == null || RightsBox.getValue().equals(""))
         {
             validInput = false;

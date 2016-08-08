@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 
 <SplitPane dividerPositions="0.7506265664160401" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ToDaKa.CashRegisterSystem.control.ControllerCustomerBuyScreen">
     <items>
@@ -41,11 +42,15 @@
          <children>
             <TextField fx:id="barcodeField" layoutX="14.0" layoutY="20.0" promptText="Barcode" />
             <TextField fx:id="amountField" layoutX="14.0" layoutY="61.0" prefHeight="25.0" prefWidth="149.0" promptText="Anzahl" text="1" />
-            <Button fx:id="addButton" layoutX="174.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
-             <Button fx:id="ClearButton" layoutX="268.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Abbrechen" />
+             <TextField fx:id="customerField" layoutX="213.0" layoutY="61.0" promptText="Kundennummer" />
+             <Button fx:id="addButton" layoutX="216.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Hinzufügen" />
+             <Button fx:id="ClearButton" layoutX="327.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleClearButtonClick" text="Abbrechen" />
             <Button fx:id="deleteButton" layoutX="490.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButtonClick" text="Entfernen" />
             <Button fx:id="CheckoutButton" layoutX="491.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleCheckoutClick" text="Checkout" />
-            <Button fx:id="BackButton" layoutX="693.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
+            <Button fx:id="BackButton" layoutX="693.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Zurück" />
+            <Text layoutX="620.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Summe:" />
+            <Text fx:id="PriceField" layoutX="699.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00€" />
+
          </children></AnchorPane>
   </items>
 </SplitPane>

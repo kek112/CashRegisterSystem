@@ -3,6 +3,7 @@ package de.ToDaKa.CashRegisterSystem;
 import de.ToDaKa.CashRegisterSystem.model.*;
 import de.ToDaKa.CashRegisterSystem.model.execptions.*;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -29,11 +30,14 @@ public class  DataProvider {
 
         try
     {
-        CRS.addCustomer(new Customer("Stefan", "Dietrich", true, 263275154,new Date(1990,6,9)));
-        CRS.addCustomer(new Customer("Anke", "Loew", false, 361917187,new Date(1962,3,28)));
-        CRS.addCustomer(new Customer("Tobias", "Rothschild", true, 611231427,new Date(1961,6,10)));
-        CRS.addCustomer(new Customer("Matthias", "Bumgarner", true, 442595919, new Date(1938,7,18)));
-
+        try {
+            CRS.addCustomer(new Customer("Stefan", "Dietrich", true, 263275154,Main.dateFormat.parse("06.09.1990")));
+            CRS.addCustomer(new Customer("Anke", "Loew", false, 361917187,Main.dateFormat.parse("28.06.1962")));
+            CRS.addCustomer(new Customer("Tobias", "Rothschild", true, 611231427,Main.dateFormat.parse("10.06.1961")));
+            CRS.addCustomer(new Customer("Matthias", "Bumgarner", true, 442595919,Main.dateFormat.parse("18.07.1938")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         }
         catch (CustomerExistsException e)
         {
@@ -63,9 +67,9 @@ public class  DataProvider {
 
         try
         {
-            CRS.addCashier(new Cashier("Daniel", "Albrecht", MD5.getMD5("geheim") ,true));
-            CRS.addCashier(new Cashier("Karl-Erik", "Kley", MD5.getMD5("Passlord") ,false));
-            CRS.addCashier(new Cashier("Tobias", "Rieß", MD5.getMD5("Test") ,true));
+            CRS.addCashier(new Cashier("Daniel", "Albrecht",Long.parseLong("01765487511"), Main.dateFormat.parse("24.10.1993"), MD5.getMD5("geheim") ,true));
+            CRS.addCashier(new Cashier("Karl-Erik", "Kley",Long.parseLong("2134123123"), Main.dateFormat.parse("21.02.1994"), MD5.getMD5("Passlord") ,false));
+            CRS.addCashier(new Cashier("Tobias", "Rieß",Long.parseLong("017544775456"), Main.dateFormat.parse("02.08.1992"), MD5.getMD5("Test") ,true));
 
 
         }
@@ -73,6 +77,8 @@ public class  DataProvider {
         {
             e.printStackTrace();
 
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         try
         {
