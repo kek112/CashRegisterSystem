@@ -240,6 +240,16 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     @FXML
     void NameCol_OnEditCommit(Event e)
     {
+        IStorageController sc = new JpaStorageController();
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
         TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
 
@@ -247,7 +257,6 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
         Main.CRS.findCashier(employeerow.getEmployeeNr()).setLastName(cellEditEvent.getNewValue());
 
-        IStorageController sc = new JpaStorageController();
 
         try
         {
@@ -265,6 +274,16 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     @FXML
     void FirstName_OnEditCommit(Event e)
     {
+        IStorageController sc = new JpaStorageController();
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
         TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
 
@@ -272,7 +291,6 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
         Main.CRS.findCashier(employeerow.getEmployeeNr()).setFirstName(cellEditEvent.getNewValue());
 
-        IStorageController sc = new JpaStorageController();
 
         try
         {
@@ -288,6 +306,18 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     }
     @FXML
     void Telephone_OnEditCommit(Event e){
+        IStorageController sc = new JpaStorageController();
+
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
+
+
         TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
 
@@ -295,7 +325,6 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
         Main.CRS.findCashier(employeerow.getEmployeeNr()).setTelephone(Long.parseLong(cellEditEvent.getNewValue()));
 
-        IStorageController sc = new JpaStorageController();
 
         try
         {
@@ -313,6 +342,15 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
     @FXML
     void Birthday_OnEditCommit(Event e) {
 
+        IStorageController sc = new JpaStorageController();
+        try
+        {
+            Main.CRS=sc.loadCashRegisterSystem();
+        }
+        catch (StorageException ex)
+        {
+            ex.printStackTrace();
+        }
         TableColumn.CellEditEvent<EmployeeBeans,String> cellEditEvent;
         cellEditEvent = (TableColumn.CellEditEvent<EmployeeBeans,String>) e;
 
@@ -325,7 +363,6 @@ public class EmployeeAdvancedTableViewScreen implements Initializable {
 
         }
 
-        IStorageController sc = new JpaStorageController();
 
         try
         {

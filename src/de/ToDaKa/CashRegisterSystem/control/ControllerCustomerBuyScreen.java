@@ -195,7 +195,14 @@ public class ControllerCustomerBuyScreen implements Initializable {
                     {
 
                         IStorageController sc = new JpaStorageController();
-
+                     try
+                     {
+                        Main.CRS=sc.loadCashRegisterSystem();
+                    }
+                        catch (StorageException e)
+                    {
+                        e.printStackTrace();
+                    }
                         BonInventory currentBonInventory=null;
                         if(currentBon==null)
                         {
@@ -229,7 +236,7 @@ public class ControllerCustomerBuyScreen implements Initializable {
                             currentBonInventory.setAmount(Amount+currentBonInventory.getAmount());
                         }
                         int amountInventory=currentInventory.getAmount();
-                        //currentInventory.setAmount(amountInventory-Amount);
+                        currentInventory.setAmount(amountInventory-Amount);
 
 
                         currentBon.setCashier(Main.CRS.findCashier(CurrentUser.getCurrentUserID()));
