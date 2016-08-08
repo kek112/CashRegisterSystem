@@ -1,5 +1,13 @@
 package de.ToDaKa.CashRegisterSystem.storage.exception;
 
+/**
+ Class: StorageException
+ @author Daniel Albrecht
+
+ *
+ */
+
+
 public class StorageException extends Exception
 {
     public StorageException( String message )

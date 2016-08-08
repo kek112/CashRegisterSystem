@@ -7,6 +7,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ Class: CashRegister
+ @author Daniel Albrecht
+
+ represents the Cash Register entitity in the database
+ **/
+
 @Entity
 public class CashRegister extends AbstractDatabaseEntity implements Serializable {
     @OneToMany(cascade={CascadeType.PERSIST},mappedBy = "m_CashRegister")

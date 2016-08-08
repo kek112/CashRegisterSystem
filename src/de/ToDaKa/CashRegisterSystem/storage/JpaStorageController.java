@@ -6,11 +6,25 @@ import de.ToDaKa.CashRegisterSystem.storage.core.IGenericDao;
 import de.ToDaKa.CashRegisterSystem.storage.exception.StorageException;
 
 import java.util.ArrayList;
+/**
+ Class: JpaStorageController
+ @author Daniel Albrecht
+
+ *
+ */
 
 public class JpaStorageController implements IStorageController
 {
+    /**
+     Function: loadCashRegisterSystem
+     @author Daniel Albrecht
+     @return CashRegisterSystem
 
-    public CashRegisterSystem loadCashRegisterSystem() throws StorageException
+     Load information from the Database and save in a CashRegisterSystem
+
+     *
+     */
+        public CashRegisterSystem loadCashRegisterSystem() throws StorageException
     {
         IGenericDao<Inventory> InventoryDao = DataController.getInstance().getInventoryDao();
         IGenericDao<Cashier> CashierDao = DataController.getInstance().getCashierDao();
@@ -32,6 +46,14 @@ public class JpaStorageController implements IStorageController
         return _CashRegisterSystem;
     }
 
+    /**
+ Function: loadCashRegisterSystem
+ @author Daniel Albrecht
+ @param  _CashRegisterSystem
+
+ Save the information from a CashRegisterSystem to the Database
+
+ **/
     public void saveCashRegisterSystem( CashRegisterSystem _CashRegisterSystem ) throws StorageException
     {
         IGenericDao<Inventory> InventoryDao = DataController.getInstance().getInventoryDao();

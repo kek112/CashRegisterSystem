@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Daniel on 15.06.2016.
- */
+ Class: CashRegisterSystem
+ @author Daniel Albrecht
+
+ represents the Cash Register System entitity in the database
+ **/
 public class CashRegisterSystem implements Serializable {
 
     private static final long serialVersionUID = -4224741350801502250L;

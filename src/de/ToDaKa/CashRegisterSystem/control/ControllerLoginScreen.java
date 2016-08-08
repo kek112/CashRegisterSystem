@@ -15,8 +15,12 @@ import javafx.scene.control.TextField;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- * Created by karls_000 on 20.06.2016.
- */
+ Class: ControllerLoginScreen
+ @author Karl-Erik Kley
+
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 public class ControllerLoginScreen
 {
 

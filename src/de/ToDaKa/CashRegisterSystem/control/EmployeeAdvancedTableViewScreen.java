@@ -40,8 +40,12 @@ import java.util.ResourceBundle;
 import de.ToDaKa.CashRegisterSystem.model.Beans.*;
 
 /**
- * Created by karls_000 on 27.06.2016.
- */
+ Class: EmployeeAdvancedTableViewScreen
+ @author Karl-Erik Kley
+
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 
 public class EmployeeAdvancedTableViewScreen implements Initializable {
 

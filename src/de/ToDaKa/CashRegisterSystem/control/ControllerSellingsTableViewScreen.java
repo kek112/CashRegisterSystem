@@ -30,7 +30,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ Class: ControllerSellingsTableViewScreen
+ @author Karl-Erik Kley
 
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 public class ControllerSellingsTableViewScreen implements Initializable {
 
 

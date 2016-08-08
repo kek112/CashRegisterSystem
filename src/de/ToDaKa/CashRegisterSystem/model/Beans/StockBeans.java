@@ -3,8 +3,11 @@ package de.ToDaKa.CashRegisterSystem.model.Beans;
 import javafx.beans.property.*;
 
 /**
- * Created by karls_000 on 23.06.2016.
- */
+ Class: stockBeans
+ @author Karl-Erik Kley
+
+ Represents the storage for the usage in the FX application.
+ **/
 public class StockBeans {
 
     private StringProperty Barcode = new SimpleStringProperty(this, "Barcode", "0");

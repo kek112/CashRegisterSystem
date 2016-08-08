@@ -37,6 +37,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ Class: ControllerCustomerBuyScreen
+ @author Karl-Erik Kley
+
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 
 public class ControllerCustomerBuyScreen implements Initializable {
 

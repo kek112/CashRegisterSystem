@@ -6,6 +6,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ Class: Inventory
+ @author Daniel Albrecht
+
+ represents the inventory entitity in the database
+ **/
 @Entity
 public class Inventory extends AbstractDatabaseEntity implements Comparable<Inventory>, Serializable {
 

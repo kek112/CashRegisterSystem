@@ -8,8 +8,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Tobias on 21.06.2016.
- */
+ Class: EmployeeAdvancedTableViewScreen
+ @author Tobias Rieß
+
+
+ **/
 public class Statistic
 {
     public static float statistic (CashRegisterSystem CRS, Date ToDate)

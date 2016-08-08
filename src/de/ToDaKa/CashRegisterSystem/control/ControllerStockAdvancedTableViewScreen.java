@@ -36,8 +36,12 @@ import javafx.util.converter.NumberStringConverter;
 import de.ToDaKa.CashRegisterSystem.model.Beans.*;
 
 /**
- * Created by karls_000 on 23.06.2016.
- */
+ Class: ControllerStockAdvancedTableViewScreen
+ @author Karl-Erik Kley
+
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 public class ControllerStockAdvancedTableViewScreen implements Initializable
 {
 

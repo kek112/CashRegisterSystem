@@ -6,6 +6,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+/**
+ Class: Bon
+ @author Daniel Albrecht
+
+ represents the bon entitity in the database
+ **/
 
 @Entity
 public class Bon extends AbstractDatabaseEntity {

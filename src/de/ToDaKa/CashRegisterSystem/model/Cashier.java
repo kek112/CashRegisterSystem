@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ Class: Cashier
+ @author Daniel Albrecht
+
+ represents the cashier entitity in the database
+ **/
+
 @Entity
 public class Cashier extends AbstractDatabaseEntity implements Comparable<Customer>, Serializable {
     private String m_FirstName;

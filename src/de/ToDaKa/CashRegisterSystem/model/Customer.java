@@ -6,7 +6,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+/**
+ Class: Customer
+ @author Daniel Albrecht
 
+ represents the customer entitity in the database
+ **/
 @Entity
 public class Customer extends AbstractDatabaseEntity implements Comparable<Customer>, Serializable {
     private String m_FirstName;

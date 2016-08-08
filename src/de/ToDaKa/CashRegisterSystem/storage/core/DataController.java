@@ -5,6 +5,11 @@ import de.ToDaKa.CashRegisterSystem.model.*;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ Class: DataController
+ @author Daniel Albrecht
+
+ **/
 public class DataController
 {
     private static final String PERSISTENCE_UNIT_NAME = "CashRegisterSystem-Unit";

@@ -3,6 +3,14 @@ package de.ToDaKa.CashRegisterSystem.storage.core;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ Class: AbstractDatabaseEntity
+ @author Daniel Albrecht
+
+ Generate a fixed values for every entity
+ Values: id, version, created Date, modified Date
+ *
+ */
 @Entity
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 public abstract class AbstractDatabaseEntity

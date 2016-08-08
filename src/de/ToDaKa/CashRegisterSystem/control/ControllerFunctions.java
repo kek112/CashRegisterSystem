@@ -13,8 +13,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by karls_000 on 20.06.2016.
- */
+ Class: ControllerFunctions
+ @author Karl-Erik Kley
+
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 public class ControllerFunctions {
 
    public  boolean switchScene(ActionEvent event, String filename) throws Exception

@@ -4,8 +4,11 @@ import javafx.beans.property.*;
 import sun.util.calendar.BaseCalendar;
 
 /**
- * Created by karls_000 on 27.06.2016.
- */
+ Class: EmployeeBeans
+ @author Karl-Erik Kley
+
+ Represents the storage for the usage in the FX application.
+ **/
 public class EmployeeBeans
 {
 

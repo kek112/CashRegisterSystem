@@ -2,7 +2,12 @@ package de.ToDaKa.CashRegisterSystem.model.Beans;
 
 import javafx.beans.property.*;
 import javafx.beans.property.StringProperty;
+/**
+ Class: CustomerBuyBeans
+ @author Karl-Erik Kley
 
+ Represents the storage for the usage in the FX application.
+ **/
 
 public class CustomerBuyBeans {
 

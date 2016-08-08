@@ -6,9 +6,22 @@ import de.ToDaKa.CashRegisterSystem.model.execptions.*;
 import java.util.Date;
 
 /**
- * Created by Daniel on 01.07.2016.
- */
+Class: DataProvider
+@author Daniel Albrecht
+
+DataProvider generate example Data
+
+ **/
 public class  DataProvider {
+
+    /**
+    Funktion: createTestCRS
+    @author Daniel Albrecht
+    @return CashRegisterSystem
+
+    generate Customer, Inventory, Cashier example data and save it in a CashRegisterSystem
+
+    **/
 
     public static CashRegisterSystem creatTestCRS()
     {

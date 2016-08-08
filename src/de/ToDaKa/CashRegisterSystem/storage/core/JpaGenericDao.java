@@ -5,7 +5,10 @@ import javax.persistence.Query;
 import java.util.Collection;
 import java.util.List;
 
-/*
+/**
+    Class: JpaGenericDao
+    @author Daniel Albrecht
+
     Our generic Dao for all model objects
 
     It has package-local visibility - thus, instances can only be created inside
@@ -14,7 +17,7 @@ import java.util.List;
 
     Anyone, who needs a Dao must therefore use our DataController class.
 
- */
+ **/
 class JpaGenericDao<T extends AbstractDatabaseEntity> implements IGenericDao<T>
 {
     private final Class<T> persistentClass;

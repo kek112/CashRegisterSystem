@@ -10,8 +10,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
- * Created by karls_000 on 20.06.2016.
- */
+ Class: ControllerEmployeeMenu
+ @author Karl-Erik Kley
+
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 public class ControllerEmployeeMenu
 {
 

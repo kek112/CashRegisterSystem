@@ -32,7 +32,13 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ Class: ControllerCustomer
+ @author Karl-Erik Kley
 
+ Provides the connection for the FXML window,
+ to create the interface to the system
+ **/
 
 public class ControllerCustomer implements Initializable {
     ControllerFunctions CFObject=new ControllerFunctions();

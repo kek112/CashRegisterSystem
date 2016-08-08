@@ -1,7 +1,12 @@
 package de.ToDaKa.CashRegisterSystem.model;
 
 import javax.persistence.*;
+/**
+ Class: BonInventory
+ @author Daniel Albrecht
 
+ represents the boninventory entitity in the database
+ **/
 @Entity
 public class BonInventory {
     @Id

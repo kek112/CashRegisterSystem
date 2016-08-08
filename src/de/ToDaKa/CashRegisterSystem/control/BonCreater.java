@@ -7,8 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Created by Tobias on 21.06.2016.
- */
+ Class: EmployeeAdvancedTableViewScreen
+ @author Tobias Rieß
+
+
+ **/
 public class BonCreater
 {
     public void createBonPDF(Bon _Bon, String _Filename)

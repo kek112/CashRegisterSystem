@@ -3,13 +3,23 @@
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-/**
- * Created by Daniel on 21.06.2016.
- * Example MD5 Hash Generator
- */
+ /**
+  Funktion: MD5
+  @author Daniel Albrecht
+
+  Generate a MD5 Hash from a String
+  **/
 
 public class MD5 {
-    public static String getMD5(String _Input) {
+     /**
+      Funktion: MD5
+      @author Daniel Albrecht
+      @param _Input
+      @return String
+
+      **/
+
+     public static String getMD5(String _Input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(_Input.getBytes());

@@ -8,8 +8,11 @@ import de.ToDaKa.CashRegisterSystem.storage.core.IGenericDao;
 import static de.ToDaKa.CashRegisterSystem.MD5.getMD5;
 
 /**
- * Created by Tobias on 27.06.2016.
- */
+ Class: EmployeeAdvancedTableViewScreen
+ @author Tobias Rieß
+
+
+ **/
 public class Login
 {
     public static int login(CashRegisterSystem _CRS, String _ID, String _pw)
